@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.polytech.amusees.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -20,9 +22,21 @@ class LoginFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.apply {
-            twTitle.text = getString(R.string.login_title)
+            tvTitle.text = getString(R.string.login_title)
+            tvLogin.text = getString(R.string.login_login)
+            tvPassword.text = getString(R.string.login_password)
+            btLogin.text = getString(R.string.login_button)
+        }
+
+        binding.btLogin.setOnClickListener {
+            login(it)
         }
 
         return binding.root
+    }
+
+    private fun login(view: View) {
+        Toast.makeText(activity, "Connexion en cours...", Toast.LENGTH_SHORT).show()
+        //TODO: Vérif DB + Connexion
     }
 }

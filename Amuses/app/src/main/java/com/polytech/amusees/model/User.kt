@@ -10,7 +10,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-// nom, prénom, anniversaire, email, mot de passe, adresse, ville, pays, sexe
+// nom, prénom, anniversaire, email, login, mot de passe, adresse, ville, pays, sexe
 @Keep
 @Entity(tableName = "user")
 data class User(@PrimaryKey(autoGenerate = true)
@@ -28,6 +28,9 @@ data class User(@PrimaryKey(autoGenerate = true)
 
                 @ColumnInfo(name = "email")
                 private var _email: String? = "",
+
+                @ColumnInfo(name = "login")
+                private var _login: String? = "",
 
                 // TODO : encoder le mot de passe
                 @ColumnInfo(name = "password")
@@ -74,6 +77,13 @@ data class User(@PrimaryKey(autoGenerate = true)
         set(value) {
             _birthdayDate = value
             notifyPropertyChanged(BR.birthdayDate)
+        }
+
+    var login: String?
+        @Bindable get() = _login
+        set(value) {
+            _login = value
+            notifyPropertyChanged(BR.login)
         }
 
     var email: String?
@@ -128,6 +138,7 @@ data class User(@PrimaryKey(autoGenerate = true)
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readString(),
         parcel.readString()
     ) {
     }
@@ -138,6 +149,7 @@ data class User(@PrimaryKey(autoGenerate = true)
         parcel.writeString(_firstname)
         parcel.writeLong(_birthdayDate)
         parcel.writeString(_email)
+        parcel.writeString(_login)
         parcel.writeString(_password)
         parcel.writeString(_adress)
         parcel.writeString(_city)

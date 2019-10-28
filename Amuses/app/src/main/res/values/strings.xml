@@ -5,7 +5,10 @@
     <string name="home_login">Connexion</string>
     <string name="home_register">Créer un compte</string>
 
-    <string name="login_title">Se connecter</string>
+    <string name="login_title">Connexion</string>
+    <string name="login_login">Nom de compte</string>
+    <string name="login_password">Mot de passe</string>
+    <string name="login_button">Se connecter</string>
 
     <string name="register_title">S\'enregistrer !</string>
 

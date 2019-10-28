@@ -20,7 +20,7 @@ class RegisterFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.apply {
-            twTitle.text = getString(R.string.register_title)
+            tvTitle.text = getString(R.string.register_title)
         }
 
         return binding.root
