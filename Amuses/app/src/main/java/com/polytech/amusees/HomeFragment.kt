@@ -22,9 +22,9 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.apply {
-            twTitle.text = getString(R.string.home_title)
-            btLogin.text = getString(R.string.home_login)
-            btRegister.text = getString(R.string.home_register)
+            twTitle.text = getString(R.string.welcome)
+            btLogin.text = getString(R.string.login_title)
+            btRegister.text = getString(R.string.register_title)
         }
 
         binding.btLogin.setOnClickListener {

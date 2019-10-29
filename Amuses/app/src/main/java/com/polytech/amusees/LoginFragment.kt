@@ -23,8 +23,6 @@ class LoginFragment : Fragment() {
 
         binding.apply {
             tvTitle.text = getString(R.string.login_title)
-            tvLogin.text = getString(R.string.login_login)
-            tvPassword.text = getString(R.string.login_password)
             btLogin.text = getString(R.string.login_button)
         }
 

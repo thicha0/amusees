@@ -1,16 +1,28 @@
 <resources>
     <string name="app_name">Amusées</string>
 
-    <string name="home_title">Bienvenue !</string>
-    <string name="home_login">Connexion</string>
-    <string name="home_register">Créer un compte</string>
-
+    <string name="welcome">Bienvenue !</string>
+    <string name="register_title">Créer un compte</string>
     <string name="login_title">Connexion</string>
-    <string name="login_login">Nom de compte</string>
-    <string name="login_password">Mot de passe</string>
+
+    <string name="gender">Genre</string>
+    <string name="lastname">Nom</string>
+    <string name="firstname">Prénom</string>
+    <string name="birthday_date">Date de naissance</string>
+    <string name="adress">Adresse</string>
+    <string name="city">Ville</string>
+    <string name="country">Pays</string>
+    <string name="email">Email</string>
+    <string name="login">Nom de compte</string>
+    <string name="password">Mot de passe</string>
+
+    <string name="password_verif">Vérification du mot de passe</string>
+
     <string name="login_button">Se connecter</string>
+    <string name="register_button">S\'enregistrer !</string>
+    <string name="next_button">Suivant</string>
+    <string name="previous_button">Précédent</string>
 
-    <string name="register_title">S\'enregistrer !</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="man">Homme</string>
+    <string name="woman">Femme</string>
 </resources>

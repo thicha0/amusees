@@ -14,7 +14,7 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_homeFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerPersonnalFragment" />
     </fragment>
 
     <fragment
@@ -25,10 +25,39 @@
     </fragment>
 
     <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.polytech.amusees.RegisterFragment"
-        android:label="RegisterFragment"
-        tools:layout="@layout/fragment_register">
+        android:id="@+id/registerPersonnalFragment"
+        android:name="com.polytech.amusees.RegisterPersonnalFragment"
+        android:label="RegisterPersonnalFragment"
+        tools:layout="@layout/fragment_register_personnal">
+        <action
+            android:id="@+id/action_registerPersonnalFragment_to_registerLocationFragment"
+            app:destination="@id/registerLocationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerLocationFragment"
+        android:name="com.polytech.amusees.RegisterLocationFragment"
+        android:label="RegisterLocationFragment"
+        tools:layout="@layout/fragment_register_location">
+        <action
+            android:id="@+id/action_registerLocationFragment_to_registerAccountFragment"
+            app:destination="@id/registerAccountFragment" />
+        <action
+            android:id="@+id/action_registerLocationFragment_to_registerPersonnalFragment"
+            app:destination="@id/registerPersonnalFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerAccountFragment"
+        android:name="com.polytech.amusees.RegisterAccountFragment"
+        android:label="RegisterAccountFragment"
+        tools:layout="@layout/fragment_register_account">
+        <action
+            android:id="@+id/action_registerAccountFragment_to_registerLocationFragment"
+            app:destination="@id/registerLocationFragment" />
+        <action
+            android:id="@+id/action_registerAccountFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
 </navigation>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.polytech.tp2.MainActivity"
+    tools:layout="@layout/fragment_register_personnal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/rg_gender" />
+
+        <!-- Gender -->
+        <RadioGroup
+            android:id="@+id/rg_gender"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+            <RadioButton
+                android:id="@+id/rb_woman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/woman" />
+
+            <RadioButton
+                android:id="@+id/rb_man"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/man" />
+        </RadioGroup>
+
+        <!-- Lastname -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ev_lastname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@id/rg_gender"
+            app:layout_constraintTop_toBottomOf="@id/rg_gender">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ti_lastname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/lastname" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Firstname -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ev_firstname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@id/ev_lastname"
+            app:layout_constraintTop_toBottomOf="@id/ev_lastname">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ti_firstname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/firstname" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Birthday date -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ev_birthday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/ev_firstname"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ev_firstname">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ti_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Adress -->
+        <!-- City -->
+        <!-- Country -->
+
+        <!-- Email -->
+        <!-- Login -->
+        <!-- Password -->
+
+        <Button
+            android:id="@+id/bt_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ev_birthday" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.polytech.amusees.MainActivity"
-    tools:layout="@layout/fragment_login">
+    tools:context="com.polytech.tp2.MainActivity"
+    tools:layout="@layout/fragment_register_account">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/tv_title"
@@ -16,11 +16,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ev_login" />
+            app:layout_constraintTop_toTopOf="@id/ev_email" />
 
-        <!-- Login -->
+        <!-- Email -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ev_login"
+            android:id="@+id/ev_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -29,11 +29,30 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ti_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/email" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Login -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ev_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ev_email">
+
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ti_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:hint="@string/login"/>
+                android:hint="@string/login" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,13 +75,38 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/bt_login"
-            android:layout_width="wrap_content"
+        <!-- Password verification -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ev_password2"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ev_password" />
+            app:layout_constraintTop_toBottomOf="@id/ev_password">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ti_password2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="@string/password_verif" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/bt_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ev_password2" />
+
+        <Button
+            android:id="@+id/bt_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bt_next" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
