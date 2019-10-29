@@ -2,8 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.polytech.tp2.MainActivity"
+    tools:context="com.polytech.amusees.MainActivity"
     tools:layout="@layout/fragment_register_personnal">
+
+    <data>
+        <import type="com.polytech.amusees.LongConverter"/>
+        <variable
+            name="viewModel"
+            type="com.polytech.amusees.viewmodel.RegisterPersonnalViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -31,12 +38,16 @@
                 android:id="@+id/rb_woman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="@{viewModel.user.gender.equals(@string/woman)}"
+                android:onClick="@{() -> viewModel.onGender(@string/woman)}"
                 android:text="@string/woman" />
 
             <RadioButton
                 android:id="@+id/rb_man"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="@{viewModel.user.gender.equals(@string/man)}"
+                android:onClick="@{() -> viewModel.onGender(@string/man)}"
                 android:text="@string/man" />
         </RadioGroup>
 
@@ -55,7 +66,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:hint="@string/lastname" />
+                android:hint="@string/lastname"
+                android:text="@={viewModel.user.lastname}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,7 +86,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:hint="@string/firstname" />
+                android:hint="@string/firstname"
+                android:text="@={viewModel.user.firstname}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,24 +104,18 @@
                 android:id="@+id/ti_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date" />
+                android:inputType="date"
+                android:text="@={LongConverter.dateToString(viewModel.user.birthdayDate)}" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Adress -->
-        <!-- City -->
-        <!-- Country -->
-
-        <!-- Email -->
-        <!-- Login -->
-        <!-- Password -->
 
         <Button
             android:id="@+id/bt_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ev_birthday" />
+            app:layout_constraintTop_toBottomOf="@id/ev_birthday"
+            android:onClick="@{() -> viewModel.onValidate()}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

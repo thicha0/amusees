@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -45,4 +47,6 @@ dependencies {
     kapt 'android.arch.persistence.room:compiler:1.1.1'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    kapt 'com.google.dagger:dagger-compiler:2.24'
 }

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.polytech.amusees.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -20,6 +21,7 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.lifecycleOwner = this
+
 
         binding.apply {
             twTitle.text = getString(R.string.welcome)
@@ -45,6 +47,6 @@ class HomeFragment : Fragment() {
 
     private fun register(view: View) {
         Toast.makeText(activity, "Créer un compte !", Toast.LENGTH_SHORT).show()
-        view.findNavController().navigate(R.id.action_homeFragment_to_registerFragment)
+        this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToRegisterFragment())
     }
 }

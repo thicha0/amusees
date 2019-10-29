@@ -140,8 +140,7 @@ data class User(@PrimaryKey(autoGenerate = true)
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(_id)
