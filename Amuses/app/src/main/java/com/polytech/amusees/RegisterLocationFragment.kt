@@ -24,16 +24,11 @@ class RegisterLocationFragment : Fragment() {
         binding.apply {
             tvTitle.text = getString(R.string.register_title)
             btNext.text = getString(R.string.next_button)
-            btPrevious.text = getString(R.string.previous_button)
         }
 
         binding.btNext.setOnClickListener {
             //TODO: vérification des champs
             nextStepRegister(it)
-        }
-
-        binding.btPrevious.setOnClickListener {
-            goBackPreviousStepRegister(it)
         }
 
         return binding.root
@@ -42,10 +37,5 @@ class RegisterLocationFragment : Fragment() {
     private fun nextStepRegister(view: View) {
         Toast.makeText(activity, "Données de locations remplies", Toast.LENGTH_SHORT).show()
         view.findNavController().navigate(R.id.action_registerLocationFragment_to_registerAccountFragment)
-    }
-
-    private fun goBackPreviousStepRegister(view: View) {
-        Toast.makeText(activity, "Retour aux données personnelles", Toast.LENGTH_SHORT).show()
-        view.findNavController().navigate(R.id.action_registerLocationFragment_to_registerPersonnalFragment)
     }
 }

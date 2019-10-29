@@ -7,13 +7,13 @@ import androidx.lifecycle.ViewModel
 import com.polytech.amusees.model.User
 import kotlinx.coroutines.launch
 
-class RegisterPersonnalViewModel(userParam: User) : ViewModel()
+class RegisterPersonnalViewModel() : ViewModel()
 {
     init {
         Log.i("RegisterPersonnalVM", "created")
     }
 
-    private val _user = MutableLiveData<User>(userParam)
+    private val _user = MutableLiveData<User>()
     val user: LiveData<User>
         get() = _user
 
@@ -32,5 +32,6 @@ class RegisterPersonnalViewModel(userParam: User) : ViewModel()
 
     fun onValidate() {
         _navigateToRegisterLocationFragment.value = user.value
+        Log.i("200","OK clicked")
     }
 }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.databinding.InverseMethod
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -16,7 +17,7 @@ import com.polytech.amusees.databinding.FragmentRegisterPersonnalBinding
 import java.text.SimpleDateFormat
 import java.util.*
 import com.polytech.amusees.viewmodel.RegisterPersonnalViewModel
-import com.polytech.amusees.viewmodelfactory.RegisterPersonnalViewModelFactory
+import com.polytech.amusees.viewmodelfactory.RegisterLocationViewModelFactory
 
 object LongConverter {
     @JvmStatic
@@ -42,7 +43,7 @@ object LongConverter {
 class RegisterPersonnalFragment : Fragment() {
     private lateinit var binding: FragmentRegisterPersonnalBinding
     private lateinit var viewModel: RegisterPersonnalViewModel
-    private lateinit var viewModelFactory: RegisterPersonnalViewModelFactory
+    private lateinit var viewModelFactory: RegisterLocationViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,15 +53,7 @@ class RegisterPersonnalFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register_personnal, container, false)
         binding.lifecycleOwner = this
 
-        val args = RegisterPersonnalFragmentArgs.fromBundle(arguments!!)
-        if (args.user != null) { // si on passe un user
-            viewModelFactory = RegisterPersonnalViewModelFactory(args.user)
-            viewModel = ViewModelProviders.of(this, viewModelFactory).get(RegisterPersonnalViewModel::class.java)
-        } else {
-            viewModel = ViewModelProviders.of(this).get(RegisterPersonnalViewModel::class.java)
-        }
-        //TODO régler problème safeargs
-        //viewModelFactory = RegisterPersonnalViewModelFactory(args.user)
+        viewModel = ViewModelProviders.of(this).get(RegisterPersonnalViewModel::class.java)
 
         binding.viewModel = viewModel
 
@@ -86,7 +79,7 @@ class RegisterPersonnalFragment : Fragment() {
             dpd.show()
         }
 
-        viewModel.navigateToRegisterLocationFragment.observe(this, androidx.lifecycle.Observer { user ->
+        viewModel.navigateToRegisterLocationFragment.observe(this, Observer { user ->
             user?.let {
                 val message = viewModel.user.value?.lastname + " " +
                         viewModel.user.value?.firstname + " " +

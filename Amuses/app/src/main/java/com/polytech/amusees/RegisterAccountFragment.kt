@@ -27,16 +27,11 @@ class RegisterAccountFragment : Fragment() {
         binding.apply {
             tvTitle.text = getString(R.string.register_title)
             btNext.text = getString(R.string.next_button)
-            btPrevious.text = getString(R.string.previous_button)
         }
 
         binding.btNext.setOnClickListener {
             //TODO: vérification des champs
             nextStepRegister(it)
-        }
-
-        binding.btPrevious.setOnClickListener {
-            goBackPreviousStepRegister(it)
         }
 
         return binding.root
@@ -45,10 +40,5 @@ class RegisterAccountFragment : Fragment() {
     private fun nextStepRegister(view: View) {
         Toast.makeText(activity, "Compte créé, vous pouvez vous connecter !", Toast.LENGTH_SHORT).show()
         view.findNavController().navigate(R.id.action_registerAccountFragment_to_loginFragment)
-    }
-
-    private fun goBackPreviousStepRegister(view: View) {
-        Toast.makeText(activity, "Retour aux données de location", Toast.LENGTH_SHORT).show()
-        view.findNavController().navigate(R.id.action_registerAccountFragment_to_registerLocationFragment)
     }
 }

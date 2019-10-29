@@ -25,9 +25,6 @@
         <argument
             android:name="user"
             app:argType="com.polytech.amusees.model.User" />
-        <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
     </fragment>
 
     <fragment
@@ -38,11 +35,6 @@
         <action
             android:id="@+id/action_registerPersonnalFragment_to_registerLocationFragment"
             app:destination="@id/registerLocationFragment" />
-        <argument
-            android:name="user"
-            app:argType="com.polytech.amusees.model.User"
-            app:nullable="true"
-            android:defaultValue="@null" />
     </fragment>
 
     <fragment
@@ -53,9 +45,6 @@
         <action
             android:id="@+id/action_registerLocationFragment_to_registerAccountFragment"
             app:destination="@id/registerAccountFragment" />
-        <action
-            android:id="@+id/action_registerLocationFragment_to_registerPersonnalFragment"
-            app:destination="@id/registerPersonnalFragment" />
         <argument
             android:name="user"
             app:argType="com.polytech.amusees.model.User" />
@@ -66,9 +55,6 @@
         android:name="com.polytech.amusees.RegisterAccountFragment"
         android:label="RegisterAccountFragment"
         tools:layout="@layout/fragment_register_account">
-        <action
-            android:id="@+id/action_registerAccountFragment_to_registerLocationFragment"
-            app:destination="@id/registerLocationFragment" />
         <action
             android:id="@+id/action_registerAccountFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
