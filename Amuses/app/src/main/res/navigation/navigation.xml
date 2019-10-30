@@ -21,11 +21,7 @@
         android:id="@+id/loginFragment"
         android:name="com.polytech.amusees.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/fragment_login">
-        <argument
-            android:name="user"
-            app:argType="com.polytech.amusees.model.User" />
-    </fragment>
+        tools:layout="@layout/fragment_login"/>
 
     <fragment
         android:id="@+id/registerPersonnalFragment"

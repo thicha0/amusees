@@ -9,7 +9,7 @@
         <import type="com.polytech.amusees.LongConverter"/>
         <variable
             name="viewModel"
-            type="com.polytech.amusees.viewmodel.RegisterPersonnalViewModel" />
+            type="com.polytech.amusees.viewmodel.RegisterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ev_birthday"
-            android:onClick="@{() -> viewModel.onValidate()}" />
+            android:onClick="@{() -> viewModel.onValidatePersonal()}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

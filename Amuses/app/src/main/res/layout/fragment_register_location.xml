@@ -5,6 +5,12 @@
     tools:context="com.polytech.amusees.MainActivity"
     tools:layout="@layout/fragment_register_location">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.polytech.amusees.viewmodel.RegisterViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -33,7 +39,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:hint="@string/adress" />
+                android:hint="@string/adress"
+                android:text="@={viewModel.user.adress}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,7 +59,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:hint="@string/city" />
+                android:hint="@string/city"
+                android:text="@={viewModel.user.city}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,7 +79,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:hint="@string/country" />
+                android:hint="@string/country"
+                android:text="@={viewModel.user.country}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +89,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ev_country" />
+            app:layout_constraintTop_toBottomOf="@id/ev_country"
+            android:onClick="@{() -> viewModel.onValidateLocation()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

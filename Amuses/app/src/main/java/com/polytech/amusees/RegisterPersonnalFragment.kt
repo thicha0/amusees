@@ -13,11 +13,12 @@ import androidx.databinding.InverseMethod
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.polytech.amusees.database.MyDatabase
 import com.polytech.amusees.databinding.FragmentRegisterPersonnalBinding
 import java.text.SimpleDateFormat
 import java.util.*
-import com.polytech.amusees.viewmodel.RegisterPersonnalViewModel
-import com.polytech.amusees.viewmodelfactory.RegisterLocationViewModelFactory
+import com.polytech.amusees.viewmodel.RegisterViewModel
+import com.polytech.amusees.viewmodelfactory.RegisterViewModelFactory
 
 object LongConverter {
     @JvmStatic
@@ -42,8 +43,8 @@ object LongConverter {
 
 class RegisterPersonnalFragment : Fragment() {
     private lateinit var binding: FragmentRegisterPersonnalBinding
-    private lateinit var viewModel: RegisterPersonnalViewModel
-    private lateinit var viewModelFactory: RegisterLocationViewModelFactory
+    private lateinit var viewModel: RegisterViewModel
+    private lateinit var viewModelFactory: RegisterViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +54,13 @@ class RegisterPersonnalFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register_personnal, container, false)
         binding.lifecycleOwner = this
 
-        viewModel = ViewModelProviders.of(this).get(RegisterPersonnalViewModel::class.java)
+        val application = requireNotNull(this.activity).application
+        val dataSource = MyDatabase.getInstance(application).userDao
+        val viewModelFactory = RegisterViewModelFactory(dataSource, application)
+
+        viewModel =
+            ViewModelProviders.of(
+                this, viewModelFactory).get(RegisterViewModel::class.java)
 
         binding.viewModel = viewModel
 
