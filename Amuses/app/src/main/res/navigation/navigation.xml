@@ -15,13 +15,39 @@
         <action
             android:id="@+id/action_homeFragment_to_registerFragment"
             app:destination="@id/registerPersonnalFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_debugFragment"
+            app:destination="@id/debugFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/debugFragment"
+        android:name="com.polytech.amusees.DebugFragment"
+        android:label="DebugFragment"
+        tools:layout="@layout/fragment_debug"/>
+
+    <fragment
+        android:id="@+id/listMuseesFragment"
+        android:name="com.polytech.amusees.ListMuseesFragment"
+        android:label="ListMuseesFragment"
+        tools:layout="@layout/fragment_list_musees">
+        <argument
+            android:name="user"
+            app:argType="com.polytech.amusees.model.User" />
+        <action
+            android:id="@+id/action_listMuseesFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.polytech.amusees.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/fragment_login"/>
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_ListMuseesFragment"
+            app:destination="@id/listMuseesFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/registerPersonnalFragment"

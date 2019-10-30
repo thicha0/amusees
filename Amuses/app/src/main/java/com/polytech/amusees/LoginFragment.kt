@@ -36,5 +36,6 @@ class LoginFragment : Fragment() {
     private fun login(view: View) {
         Toast.makeText(activity, "Connexion en cours...", Toast.LENGTH_SHORT).show()
         //TODO: Vérif DB + Connexion
+
     }
 }

@@ -22,7 +22,11 @@
     <string name="register_button">S\'enregistrer !</string>
     <string name="next_button">Suivant</string>
     <string name="previous_button">Précédent</string>
+    <string name="debug">Debug</string>
 
     <string name="man">Homme</string>
     <string name="woman">Femme</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

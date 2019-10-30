@@ -27,6 +27,7 @@ class HomeFragment : Fragment() {
             twTitle.text = getString(R.string.welcome)
             btLogin.text = getString(R.string.login_title)
             btRegister.text = getString(R.string.register_title)
+            btDebug.text = getString(R.string.debug)
         }
 
         binding.btLogin.setOnClickListener {
@@ -35,6 +36,10 @@ class HomeFragment : Fragment() {
 
         binding.btRegister.setOnClickListener {
             register(it)
+        }
+
+        binding.btDebug.setOnClickListener {
+            debug(it)
         }
 
         return binding.root
@@ -48,5 +53,10 @@ class HomeFragment : Fragment() {
     private fun register(view: View) {
         Toast.makeText(activity, "Créer un compte !", Toast.LENGTH_SHORT).show()
         this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToRegisterFragment())
+    }
+
+    private fun debug(view: View) {
+        Toast.makeText(activity, "Debug !", Toast.LENGTH_SHORT).show()
+        this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDebugFragment())
     }
 }

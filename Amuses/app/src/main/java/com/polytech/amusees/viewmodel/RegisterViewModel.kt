@@ -135,6 +135,7 @@ class RegisterViewModel(
             if(user.email.isNullOrEmpty())
                 return@launch
 
+            //TODO Test identifiant disponible
             if(user.login.isNullOrEmpty())
                 return@launch
 
@@ -147,10 +148,35 @@ class RegisterViewModel(
         }
     }
 
+    //log me in
+    private val _navigateToListMuseesFragment = MutableLiveData<User>()
+
+    val navigateToListMuseesFragment: LiveData<User>
+        get() = _navigateToListMuseesFragment
+
+
+    fun onValidateLogin() {
+        Log.i("200","Click login")
+        uiScope.launch {
+            val user = user.value ?: return@launch
+
+            if(user.login.isNullOrEmpty())
+                return@launch
+
+            if(user.password.isNullOrEmpty())
+                return@launch
+
+            if (testLogin() > 0) {
+                _navigateToListMuseesFragment.value = user
+            }
+        }
+    }
+
     fun doneNavigating() {
         _navigateToRegisterLocationFragment.value = null
         _navigateToRegisterAccountFragment.value = null
         _navigateToLoginFragment.value = null
+        _navigateToListMuseesFragment.value = null
     }
 
     private suspend fun update(user: User) {
@@ -163,6 +189,14 @@ class RegisterViewModel(
         withContext(Dispatchers.IO) {
             database.get(id)
         }
+    }
+
+    private suspend fun testLogin(): Long {
+        var id = 0L
+        withContext(Dispatchers.IO) {
+            id = database.testLogin(user.value?.login?:"",user.value?.password?:"")
+        }
+        return id
     }
 
     override fun onCleared() {
