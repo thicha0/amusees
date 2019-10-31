@@ -24,7 +24,7 @@ class RegisterViewModel(
         get() = _user
 
     init {
-        Log.i("IdentityViewModel", "created")
+        Log.i("RegisterViewModel", "created")
         initializeUser()
     }
 
@@ -158,7 +158,7 @@ class RegisterViewModel(
     fun onValidateLogin() {
         Log.i("200","Click login")
         uiScope.launch {
-            val user = user.value ?: return@launch
+            var user = user.value ?: return@launch
 
             if(user.login.isNullOrEmpty())
                 return@launch
@@ -166,7 +166,10 @@ class RegisterViewModel(
             if(user.password.isNullOrEmpty())
                 return@launch
 
-            if (testLogin() > 0) {
+            val id = testLogin()
+            Log.i("ID",id.toString())
+            if (id > 0) {
+                _user.value = get(id)
                 _navigateToListMuseesFragment.value = user
             }
         }
@@ -185,8 +188,8 @@ class RegisterViewModel(
         }
     }
 
-    private suspend fun get(id: Long) {
-        withContext(Dispatchers.IO) {
+    private suspend fun get(id: Long): User? {
+        return withContext(Dispatchers.IO) {
             database.get(id)
         }
     }
