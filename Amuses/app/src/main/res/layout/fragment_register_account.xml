@@ -84,10 +84,11 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- TODO information on how to write password (length>8/uppercase/lowercase/special character)-->
         <!-- Password verification -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ev_password2"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -99,7 +100,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:hint="@string/password_verif" />
+                android:hint="@string/password_verif"/>
+<!--                android:text="@={viewModel.verifPassword}"/>-->
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -26,4 +26,7 @@ interface UserDao
 
     @Query("SELECT id FROM user WHERE login = :login AND password = :password LIMIT 1")
     fun testLogin(login: String, password: String): Long
+
+    @Query("SELECT id FROM user WHERE login = :login LIMIT 1")
+    fun existsLogin(login: String): Long
 }

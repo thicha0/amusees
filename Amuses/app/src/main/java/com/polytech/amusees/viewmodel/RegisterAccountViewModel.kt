@@ -29,9 +29,15 @@ class RegisterAccountViewModel(
     val user: LiveData<User>
         get() = _user
 
+//    private val _verifPassword = MutableLiveData<String>()
+//    val verifPassword: LiveData<String>
+//        get() = _verifPassword
+
+
     init {
         Log.i("RegisterAccountVM", "created")
         initializeUser()
+//        _verifPassword.value = ""
     }
 
     private fun initializeUser() {
@@ -82,28 +88,42 @@ class RegisterAccountViewModel(
         uiScope.launch {
             val user = user.value ?: return@launch
 
-            if(user.email.isNullOrEmpty()){ // TODO format
+            if(user.email.isNullOrEmpty()){
                 _alert.value = "Veuillez saisir votre email"
                 return@launch
             }
 
-            if(!formatEmailOK()) {
+            if(!isFormatEmailOK()) {
                 _alert.value = "Veuillez saisir un email correct (exemple@example.org)"
                 return@launch
             }
 
-            //TODO Test identifiant disponible
             if(user.login.isNullOrEmpty()){
                 _alert.value = "Veuillez saisir votre identifiant"
                 return@launch
             }
 
-            //TODO encoder le mdp + vérif
+            if(!isLoginAvailable()) {
+                _alert.value = "Cet identifiant est indisponible, veuillez en saisir un nouveau"
+                return@launch
+            }
+
             if(user.password.isNullOrEmpty()) {
                 _alert.value = "Veuillez saisir votre mot de passe"
                 return@launch
             }
-            encodePassword()
+
+//            if(user.password != verifPassword.value) {
+//                _alert.value = "Les mots de passes ne correspondent pas !"
+//                return@launch
+//            }
+
+            if(!isPasswordSafe()) {
+                _alert.value = "Votre mot de passe n'est pas assez sécurisé !"
+                return@launch
+            }
+
+            user.password = encode("SHA1",user.password+"")
 
             update(user)
 
@@ -111,16 +131,57 @@ class RegisterAccountViewModel(
         }
     }
 
-    fun formatEmailOK(): Boolean {
+    fun isFormatEmailOK(): Boolean {
         val email = user.value?.email+""
         val regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"
         return email.matches(regex.toRegex())
     }
 
-    fun encodePassword() {
-        user.value?.password = MessageDigest
-            .getInstance("MD5")
-            .digest((user.value?.password+"").toByteArray()).toString()
+    //TODO get out of here (factoriser avec LoginViewModel)
+    fun encode(type:String, input: String): String {
+        val HEX_CHARS = "0123456789ABCDEF"
+        val bytes = MessageDigest
+            .getInstance(type)
+            .digest(input.toByteArray())
+        val result = StringBuilder(bytes.size * 2)
+
+        bytes.forEach {
+            val i = it.toInt()
+            result.append(HEX_CHARS[i shr 4 and 0x0f])
+            result.append(HEX_CHARS[i and 0x0f])
+        }
+
+        return result.toString()
+    }
+
+    private suspend fun isLoginAvailable(): Boolean {
+        val id = withContext(Dispatchers.IO) {
+            database.existsLogin(user.value?.login+"")
+        }
+
+        return id == 0L
+    }
+
+    private fun isPasswordSafe(): Boolean {
+        val pwd = user.value?.password+""
+
+        //Length > 8
+        if(pwd.length < 8) return false
+
+        //Contains uppercase
+        if (!pwd.matches(".*[A-Z].*".toRegex())) return false
+
+        //Contains lowercase
+        if (!pwd.matches(".*[a-z].*".toRegex())) return false
+
+        //Contains number
+        if (!pwd.matches(".*\\d.*".toRegex())) return false
+
+        //Contains special character
+        if (!pwd.matches(".*[~!.......].*".toRegex())) return false
+
+        //Else OK
+        return true
     }
 
     fun doneNavigating() {

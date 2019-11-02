@@ -87,12 +87,10 @@ class LoginViewModel(
             if(user.password.isNullOrEmpty())
                 return@launch
 
-            encodePassword()
-
             val id = testLogin()
             Log.i("ID",id.toString())
             if (id > 0) {
-                _user.value = get(id)
+                _user.value?.id = id
                 _navigateToListMuseesFragment.value = user
             }
         }
@@ -117,15 +115,25 @@ class LoginViewModel(
     private suspend fun testLogin(): Long {
         var id = 0L
         withContext(Dispatchers.IO) {
-            id = database.testLogin(user.value?.login?:"",user.value?.password?:"")
+            id = database.testLogin(user.value?.login?:"",encode("SHA1",user.value?.password+""))
         }
         return id
     }
 
-    fun encodePassword() {
-        user.value?.password = MessageDigest
-            .getInstance("MD5")
-            .digest((user.value?.password+"").toByteArray()).toString()
+    fun encode(type:String, input: String): String {
+        val HEX_CHARS = "0123456789ABCDEF"
+        val bytes = MessageDigest
+            .getInstance(type)
+            .digest(input.toByteArray())
+        val result = StringBuilder(bytes.size * 2)
+
+        bytes.forEach {
+            val i = it.toInt()
+            result.append(HEX_CHARS[i shr 4 and 0x0f])
+            result.append(HEX_CHARS[i and 0x0f])
+        }
+
+        return result.toString()
     }
 
     override fun onCleared() {

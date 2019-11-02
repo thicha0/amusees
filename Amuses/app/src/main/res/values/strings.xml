@@ -16,7 +16,7 @@
     <string name="login">Nom de compte</string>
     <string name="password">Mot de passe</string>
 
-    <string name="password_verif">Vérification du mot de passe</string>
+    <string name="password_verif">Confirmation du mot de passe</string>
 
     <string name="login_button">Se connecter</string>
     <string name="register_button">S\'enregistrer !</string>

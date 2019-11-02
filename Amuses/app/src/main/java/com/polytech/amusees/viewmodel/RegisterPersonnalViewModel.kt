@@ -84,7 +84,7 @@ class RegisterPersonnalViewModel(
         uiScope.launch {
             val user = user.value ?: return@launch
 
-            if(user.gender.isNullOrEmpty()) {//test si "Homme" ou "Femme"
+            if(user.gender.isNullOrEmpty()) {//test si bien "Homme" ou "Femme"
                 _alert.value = "Veuillez sélectionner votre genre"
                 return@launch
             }
