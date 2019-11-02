@@ -1,6 +1,7 @@
 package com.polytech.amusees
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +13,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.polytech.amusees.database.MyDatabase
 import com.polytech.amusees.databinding.FragmentRegisterLocationBinding
-import com.polytech.amusees.viewmodel.RegisterViewModel
-import com.polytech.amusees.viewmodelfactory.RegisterViewModelFactory
+import com.polytech.amusees.viewmodel.RegisterLocationViewModel
+import com.polytech.amusees.viewmodelfactory.RegisterLocationViewModelFactory
+
 
 class RegisterLocationFragment : Fragment() {
     private lateinit var binding: FragmentRegisterLocationBinding
-    private lateinit var viewModel: RegisterViewModel
-    private lateinit var viewModelFactory: RegisterViewModelFactory
+    private lateinit var viewModel: RegisterLocationViewModel
+    private lateinit var viewModelFactory: RegisterLocationViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,11 +33,11 @@ class RegisterLocationFragment : Fragment() {
         val args = RegisterLocationFragmentArgs.fromBundle(arguments!!)
         val application = requireNotNull(this.activity).application
         val dataSource = MyDatabase.getInstance(application).userDao
-        val viewModelFactory = RegisterViewModelFactory(dataSource, application,args.user.id)
+        val viewModelFactory = RegisterLocationViewModelFactory(dataSource, application,args.user.id)
 
         viewModel =
             ViewModelProviders.of(
-                this, viewModelFactory).get(RegisterViewModel::class.java)
+                this, viewModelFactory).get(RegisterLocationViewModel::class.java)
 
         binding.viewModel = viewModel
 
@@ -44,12 +46,16 @@ class RegisterLocationFragment : Fragment() {
             btNext.text = getString(R.string.next_button)
         }
 
+        viewModel.alert.observe(this, Observer { message ->
+            message?.let {
+                Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
+                viewModel.doneAlerting()
+            }
+        })
+
         viewModel.navigateToRegisterAccountFragment.observe(this, Observer { user ->
             user?.let {
-                val message = viewModel.user.value?.adress + " " +
-                        viewModel.user.value?.city + " " +
-                        viewModel.user.value?.country
-                Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
+                Log.i("User",viewModel.user.value.toString())
 
                 this.findNavController().navigate(RegisterLocationFragmentDirections.actionRegisterLocationFragmentToRegisterAccountFragment(user))
                 viewModel.doneNavigating()

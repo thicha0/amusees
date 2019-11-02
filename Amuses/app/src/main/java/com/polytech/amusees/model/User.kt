@@ -108,9 +108,9 @@ data class User(@PrimaryKey(autoGenerate = true)
         }
 
     var city: String?
-        @Bindable get() = _email
+        @Bindable get() = _city
         set(value) {
-            _email = value
+            _city = value
             notifyPropertyChanged(BR.city)
         }
 
@@ -168,6 +168,20 @@ data class User(@PrimaryKey(autoGenerate = true)
         override fun newArray(size: Int): Array<User?> {
             return arrayOfNulls(size)
         }
+    }
+
+    override fun toString(): String {
+        var message = "Genre : "+ this.gender + "\n"+
+                "Nom : "+this.lastname + "\n"+
+                "Prénom : "+this.firstname+"\n"+
+                "Anniversaire : "+this.birthdayDate+"\n"+
+                "Adresse : "+this.adress+"\n"+
+                "Ville : "+this.city+"\n"+
+                "Pays : "+this.country+"\n"+
+                "Email : "+this.email+"\n"+
+                "Login : "+this.login+"\n"+
+                "Mot de passe (non encodé) : "+this.password+"\n"
+        return message
     }
 
 }

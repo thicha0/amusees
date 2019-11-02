@@ -8,7 +8,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.polytech.amusees.viewmodel.RegisterViewModel" />
+            type="com.polytech.amusees.viewmodel.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

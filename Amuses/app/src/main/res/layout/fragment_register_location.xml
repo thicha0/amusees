@@ -8,7 +8,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.polytech.amusees.viewmodel.RegisterViewModel" />
+            type="com.polytech.amusees.viewmodel.RegisterLocationViewModel" />
+        <variable
+            name="countries"
+            type="com.polytech.amusees.viewmodel.Countries" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,7 +67,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Country TODO liste déroulante -->
+        <!-- Country TODO liste déroulante/Spinner -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ev_country"
             android:layout_width="0dp"

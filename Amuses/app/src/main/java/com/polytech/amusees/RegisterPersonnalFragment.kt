@@ -3,6 +3,7 @@ package com.polytech.amusees
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +18,8 @@ import com.polytech.amusees.database.MyDatabase
 import com.polytech.amusees.databinding.FragmentRegisterPersonnalBinding
 import java.text.SimpleDateFormat
 import java.util.*
-import com.polytech.amusees.viewmodel.RegisterViewModel
-import com.polytech.amusees.viewmodelfactory.RegisterViewModelFactory
+import com.polytech.amusees.viewmodel.RegisterPersonnalViewModel
+import com.polytech.amusees.viewmodelfactory.RegisterPersonnalViewModelFactory
 
 object LongConverter {
     @JvmStatic
@@ -43,8 +44,8 @@ object LongConverter {
 
 class RegisterPersonnalFragment : Fragment() {
     private lateinit var binding: FragmentRegisterPersonnalBinding
-    private lateinit var viewModel: RegisterViewModel
-    private lateinit var viewModelFactory: RegisterViewModelFactory
+    private lateinit var viewModel: RegisterPersonnalViewModel
+    private lateinit var viewModelFactory: RegisterPersonnalViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,11 +57,11 @@ class RegisterPersonnalFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dataSource = MyDatabase.getInstance(application).userDao
-        val viewModelFactory = RegisterViewModelFactory(dataSource, application)
+        val viewModelFactory = RegisterPersonnalViewModelFactory(dataSource, application)
 
         viewModel =
             ViewModelProviders.of(
-                this, viewModelFactory).get(RegisterViewModel::class.java)
+                this, viewModelFactory).get(RegisterPersonnalViewModel::class.java)
 
         binding.viewModel = viewModel
 
@@ -86,13 +87,16 @@ class RegisterPersonnalFragment : Fragment() {
             dpd.show()
         }
 
+        viewModel.alert.observe(this, Observer { message ->
+            message?.let {
+                Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
+                viewModel.doneAlerting()
+            }
+        })
+
         viewModel.navigateToRegisterLocationFragment.observe(this, Observer { user ->
             user?.let {
-                val message = viewModel.user.value?.lastname + " " +
-                        viewModel.user.value?.firstname + " " +
-                        viewModel.user.value?.gender + " " +
-                        LongConverter.dateToString((viewModel.user.value?.birthdayDate?:0))
-                Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
+                Log.i("User",viewModel.user.value.toString())
 
                 this.findNavController().navigate(RegisterPersonnalFragmentDirections.actionRegisterPersonnalFragmentToRegisterLocationFragment(user))
                 viewModel.doneNavigating()

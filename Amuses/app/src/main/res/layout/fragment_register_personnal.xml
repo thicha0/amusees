@@ -9,7 +9,7 @@
         <import type="com.polytech.amusees.LongConverter"/>
         <variable
             name="viewModel"
-            type="com.polytech.amusees.viewmodel.RegisterViewModel" />
+            type="com.polytech.amusees.viewmodel.RegisterPersonnalViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

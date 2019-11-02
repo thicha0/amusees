@@ -9,17 +9,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.polytech.amusees.database.MyDatabase
 import com.polytech.amusees.databinding.FragmentLoginBinding
-import com.polytech.amusees.viewmodel.RegisterViewModel
-import com.polytech.amusees.viewmodelfactory.RegisterViewModelFactory
+import com.polytech.amusees.viewmodel.LoginViewModel
+import com.polytech.amusees.viewmodelfactory.LoginViewModelFactory
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
-    private lateinit var viewModel: RegisterViewModel
-    private lateinit var viewModelFactory: RegisterViewModelFactory
+    private lateinit var viewModel: LoginViewModel
+    private lateinit var viewModelFactory: LoginViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,11 +30,11 @@ class LoginFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dataSource = MyDatabase.getInstance(application).userDao
-        val viewModelFactory = RegisterViewModelFactory(dataSource, application)
+        val viewModelFactory = LoginViewModelFactory(dataSource, application)
 
         viewModel =
             ViewModelProviders.of(
-                this, viewModelFactory).get(RegisterViewModel::class.java)
+                this, viewModelFactory).get(LoginViewModel::class.java)
 
         binding.viewModel = viewModel
 

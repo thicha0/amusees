@@ -1,6 +1,7 @@
 package com.polytech.amusees
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +13,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.polytech.amusees.database.MyDatabase
 import com.polytech.amusees.databinding.FragmentRegisterAccountBinding
-import com.polytech.amusees.viewmodel.RegisterViewModel
-import com.polytech.amusees.viewmodelfactory.RegisterViewModelFactory
+import com.polytech.amusees.viewmodel.RegisterAccountViewModel
+import com.polytech.amusees.viewmodelfactory.RegisterAccountViewModelFactory
 
 class RegisterAccountFragment : Fragment() {
     private lateinit var binding: FragmentRegisterAccountBinding
-    private lateinit var viewModel: RegisterViewModel
-    private lateinit var viewModelFactory: RegisterViewModelFactory
+    private lateinit var viewModel: RegisterAccountViewModel
+    private lateinit var viewModelFactory: RegisterAccountViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,12 +33,12 @@ class RegisterAccountFragment : Fragment() {
         val args = RegisterAccountFragmentArgs.fromBundle(arguments!!)
         val application = requireNotNull(this.activity).application
         val dataSource = MyDatabase.getInstance(application).userDao
-        val viewModelFactory = RegisterViewModelFactory(dataSource, application, args.user.id)
+        val viewModelFactory = RegisterAccountViewModelFactory(dataSource, application, args.user.id)
 
         viewModel =
             ViewModelProviders.of(
                 this, viewModelFactory
-            ).get(RegisterViewModel::class.java)
+            ).get(RegisterAccountViewModel::class.java)
 
         binding.viewModel = viewModel
 
@@ -46,12 +47,16 @@ class RegisterAccountFragment : Fragment() {
             btNext.text = getString(R.string.next_button)
         }
 
+        viewModel.alert.observe(this, Observer { message ->
+            message?.let {
+                Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
+                viewModel.doneAlerting()
+            }
+        })
+
         viewModel.navigateToLoginFragment.observe(this, Observer { user ->
             user?.let {
-                val message = viewModel.user.value?.email + " " +
-                        viewModel.user.value?.login + " " +
-                        viewModel.user.value?.password
-                Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
+                Log.i("User",viewModel.user.value.toString())
 
                 this.findNavController().navigate(
                     RegisterAccountFragmentDirections.actionRegisterAccountFragmentToLoginFragment()

@@ -2,6 +2,8 @@ package com.polytech.amusees.viewmodel
 
 import android.app.Application
 import android.util.Log
+import android.widget.Spinner
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,8 +11,11 @@ import androidx.lifecycle.ViewModel
 import com.polytech.amusees.database.UserDao
 import com.polytech.amusees.model.User
 import kotlinx.coroutines.*
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import java.security.MessageDigest
 
-class RegisterViewModel(
+
+class LoginViewModel(
     val database: UserDao,
     application: Application,
     private val userID: Long = 0L // userID
@@ -24,7 +29,7 @@ class RegisterViewModel(
         get() = _user
 
     init {
-        Log.i("RegisterViewModel", "created")
+        Log.i("LoginViewModel", "created")
         initializeUser()
     }
 
@@ -54,98 +59,14 @@ class RegisterViewModel(
         return id
     }
 
-    fun onGender(gender: String) {
-        user.value?.gender = gender
-        Log.i("Gender changed to ", gender)
-    }
+    //alert
+    private val _alert = MutableLiveData<String>()
 
-    //goto Location
-    private val _navigateToRegisterLocationFragment = MutableLiveData<User>()
+    val alert: LiveData<String>
+        get() = _alert
 
-    val navigateToRegisterLocationFragment: LiveData<User>
-        get() = _navigateToRegisterLocationFragment
-
-    fun onValidatePersonal() {
-        Log.i("200","Click personal")
-        uiScope.launch {
-            val user = user.value ?: return@launch
-
-            if(user.firstname.isNullOrEmpty())
-                return@launch
-
-            if(user.lastname.isNullOrEmpty())
-                return@launch
-
-            if(user.gender.isNullOrEmpty())
-                return@launch
-
-            //TODO meilleur test ?
-            if(user.birthdayDate == 0L)
-                return@launch
-
-            update(user)
-
-            _navigateToRegisterLocationFragment.value = user
-        }
-    }
-
-    //goto account
-    private val _navigateToRegisterAccountFragment = MutableLiveData<User>()
-
-    val navigateToRegisterAccountFragment: LiveData<User>
-        get() = _navigateToRegisterAccountFragment
-
-
-    fun onValidateLocation() {
-        Log.i("200","Click location")
-        uiScope.launch {
-            val user = user.value ?: return@launch
-
-            //verif les precedents ?
-
-            if(user.adress.isNullOrEmpty())
-                return@launch
-
-            if(user.city.isNullOrEmpty())
-                return@launch
-
-            if(user.country.isNullOrEmpty())
-                return@launch
-
-            update(user)
-
-            _navigateToRegisterAccountFragment.value = user
-        }
-    }
-
-    //end register
-    private val _navigateToLoginFragment = MutableLiveData<User>()
-
-    val navigateToLoginFragment: LiveData<User>
-        get() = _navigateToLoginFragment
-
-
-    fun onValidateAccount() {
-        Log.i("200","Click account")
-        uiScope.launch {
-            val user = user.value ?: return@launch
-
-            //verif les precedents ?
-
-            if(user.email.isNullOrEmpty())
-                return@launch
-
-            //TODO Test identifiant disponible
-            if(user.login.isNullOrEmpty())
-                return@launch
-
-            if(user.password.isNullOrEmpty())
-                return@launch
-
-            update(user)
-
-            _navigateToLoginFragment.value = user
-        }
+    fun doneAlerting() {
+        _alert.value = null
     }
 
     //log me in
@@ -166,6 +87,8 @@ class RegisterViewModel(
             if(user.password.isNullOrEmpty())
                 return@launch
 
+            encodePassword()
+
             val id = testLogin()
             Log.i("ID",id.toString())
             if (id > 0) {
@@ -176,9 +99,6 @@ class RegisterViewModel(
     }
 
     fun doneNavigating() {
-        _navigateToRegisterLocationFragment.value = null
-        _navigateToRegisterAccountFragment.value = null
-        _navigateToLoginFragment.value = null
         _navigateToListMuseesFragment.value = null
     }
 
@@ -202,9 +122,15 @@ class RegisterViewModel(
         return id
     }
 
+    fun encodePassword() {
+        user.value?.password = MessageDigest
+            .getInstance("MD5")
+            .digest((user.value?.password+"").toByteArray()).toString()
+    }
+
     override fun onCleared() {
         super.onCleared()
-        Log.i("RegisterViewModel", "destroyed")
+        Log.i("LoginViewModel", "destroyed")
         viewModelJob.cancel()
     }
 }
