@@ -33,7 +33,7 @@ class RegisterLocationFragment : Fragment() {
         val args = RegisterLocationFragmentArgs.fromBundle(arguments!!)
         val application = requireNotNull(this.activity).application
         val dataSource = MyDatabase.getInstance(application).userDao
-        val viewModelFactory = RegisterLocationViewModelFactory(dataSource, application,args.user.id)
+        val viewModelFactory = RegisterLocationViewModelFactory(dataSource, application,args.user)
 
         viewModel =
             ViewModelProviders.of(

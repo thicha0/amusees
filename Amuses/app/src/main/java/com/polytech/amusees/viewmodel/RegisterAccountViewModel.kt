@@ -2,24 +2,19 @@ package com.polytech.amusees.viewmodel
 
 import android.app.Application
 import android.util.Log
-import android.widget.Spinner
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.polytech.amusees.database.UserDao
 import com.polytech.amusees.model.User
 import kotlinx.coroutines.*
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import androidx.room.TypeConverter
 import java.security.MessageDigest
 
 
 class RegisterAccountViewModel(
     val database: UserDao,
     application: Application,
-    private val userID: Long = 0L // userID
+    private val myUser: User
 ) : AndroidViewModel(application)
 {
     private var viewModelJob = Job()
@@ -29,32 +24,22 @@ class RegisterAccountViewModel(
     val user: LiveData<User>
         get() = _user
 
-//    private val _verifPassword = MutableLiveData<String>()
-//    val verifPassword: LiveData<String>
-//        get() = _verifPassword
+    private var _verifPassword: String? = ""
+    var verifPassword: String?
+        get() = _verifPassword
+        set(value) {
+            _verifPassword = value
+        }
 
 
     init {
         Log.i("RegisterAccountVM", "created")
         initializeUser()
-//        _verifPassword.value = ""
     }
 
     private fun initializeUser() {
         uiScope.launch {
-            _user.value = getUserFromDatabase()
-        }
-    }
-
-    private suspend fun getUserFromDatabase(): User? {
-        return withContext(Dispatchers.IO) {
-
-            var user = database.get(userID) // userID
-            if (user == null) {
-                user = User()
-                user.id = insert(user)
-            }
-            user
+            _user.value = myUser
         }
     }
 
@@ -113,19 +98,20 @@ class RegisterAccountViewModel(
                 return@launch
             }
 
-//            if(user.password != verifPassword.value) {
-//                _alert.value = "Les mots de passes ne correspondent pas !"
-//                return@launch
-//            }
-
-            if(!isPasswordSafe()) {
-                _alert.value = "Votre mot de passe n'est pas assez sécurisé !"
+            if(user.password != verifPassword) {
+                _alert.value = "Les mots de passes ne correspondent pas !"
                 return@launch
             }
 
+            if(!isPasswordSafe()) {
+                _alert.value = "Votre mot de passe n'est pas assez sécurisé !\nCliquez sur l'icône d'information pour voir les conditions"
+                return@launch
+            }
+
+            //TODO change 'cause it shows the SHA1 in the input of the fragment
             user.password = encode("SHA1",user.password+"")
 
-            update(user)
+            user.id = insert(user)
 
             _navigateToLoginFragment.value = user
         }
@@ -133,7 +119,7 @@ class RegisterAccountViewModel(
 
     fun isFormatEmailOK(): Boolean {
         val email = user.value?.email+""
-        val regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$"
+        val regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$" // example@example.org
         return email.matches(regex.toRegex())
     }
 
@@ -166,19 +152,34 @@ class RegisterAccountViewModel(
         val pwd = user.value?.password+""
 
         //Length > 8
-        if(pwd.length < 8) return false
-
-        //Contains uppercase
-        if (!pwd.matches(".*[A-Z].*".toRegex())) return false
+        if(pwd.length < 8) {
+            Log.i("PWD","need length of minimum 8")
+            return false
+        }
 
         //Contains lowercase
-        if (!pwd.matches(".*[a-z].*".toRegex())) return false
+        if (!pwd.matches(".*[a-z].*".toRegex())) {
+            Log.i("PWD","need lowercase")
+            return false
+        }
+
+        //Contains uppercase
+        if (!pwd.matches(".*[A-Z].*".toRegex())) {
+            Log.i("PWD","need uppercase")
+            return false
+        }
 
         //Contains number
-        if (!pwd.matches(".*\\d.*".toRegex())) return false
+        if (!pwd.matches(".*\\d.*".toRegex())) {
+            Log.i("PWD","need number")
+            return false
+        }
 
         //Contains special character
-        if (!pwd.matches(".*[~!.......].*".toRegex())) return false
+        if (!pwd.matches(".*[~*$.|?!,;(){}/@%^#].*".toRegex())) {
+            Log.i("PWD","need special character")
+            return false
+        }
 
         //Else OK
         return true
@@ -186,18 +187,6 @@ class RegisterAccountViewModel(
 
     fun doneNavigating() {
         _navigateToLoginFragment.value = null
-    }
-
-    private suspend fun update(user: User) {
-        withContext(Dispatchers.IO) {
-            database.update(user)
-        }
-    }
-
-    private suspend fun get(id: Long): User? {
-        return withContext(Dispatchers.IO) {
-            database.get(id)
-        }
     }
 
     override fun onCleared() {

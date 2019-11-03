@@ -24,7 +24,7 @@ class ListMuseesViewModel(
         get() = _user
 
     init {
-        Log.i("IdentityViewModel", "created")
+        Log.i("ListMuseesViewModel", "created")
         initializeUser()
     }
 
@@ -57,7 +57,7 @@ class ListMuseesViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        Log.i("ListViewModel", "destroyed")
+        Log.i("ListMuseesViewModel", "destroyed")
         viewModelJob.cancel()
     }
 }

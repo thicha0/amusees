@@ -2,16 +2,12 @@ package com.polytech.amusees.viewmodel
 
 import android.app.Application
 import android.util.Log
-import android.widget.Spinner
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.polytech.amusees.database.UserDao
 import com.polytech.amusees.model.User
 import kotlinx.coroutines.*
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import java.security.MessageDigest
 
 
@@ -81,11 +77,15 @@ class LoginViewModel(
         uiScope.launch {
             var user = user.value ?: return@launch
 
-            if(user.login.isNullOrEmpty())
+            if(user.login.isNullOrEmpty()) {
+                _alert.value = "Veuillez saisir un identifiant"
                 return@launch
+            }
 
-            if(user.password.isNullOrEmpty())
+            if(user.password.isNullOrEmpty()) {
+                _alert.value = "Veuillez saisir un mot de passe"
                 return@launch
+            }
 
             val id = testLogin()
             Log.i("ID",id.toString())
@@ -93,23 +93,15 @@ class LoginViewModel(
                 _user.value?.id = id
                 _navigateToListMuseesFragment.value = user
             }
+            else {
+                _alert.value = "L'identifant et le mot de passe ne correspondent pas"
+                return@launch
+            }
         }
     }
 
     fun doneNavigating() {
         _navigateToListMuseesFragment.value = null
-    }
-
-    private suspend fun update(user: User) {
-        withContext(Dispatchers.IO) {
-            database.update(user)
-        }
-    }
-
-    private suspend fun get(id: Long): User? {
-        return withContext(Dispatchers.IO) {
-            database.get(id)
-        }
     }
 
     private suspend fun testLogin(): Long {

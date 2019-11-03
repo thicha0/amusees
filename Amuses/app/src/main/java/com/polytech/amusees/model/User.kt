@@ -32,7 +32,6 @@ data class User(@PrimaryKey(autoGenerate = true)
                 @ColumnInfo(name = "login")
                 private var _login: String? = "",
 
-                // TODO : encoder le mot de passe
                 @ColumnInfo(name = "password")
                 private var _password: String? = "",
 
@@ -180,7 +179,7 @@ data class User(@PrimaryKey(autoGenerate = true)
                 "Pays : "+this.country+"\n"+
                 "Email : "+this.email+"\n"+
                 "Login : "+this.login+"\n"+
-                "Mot de passe (non encodé) : "+this.password+"\n"
+                "Mot de passe (encodé) : "+this.password+"\n"
         return message
     }
 

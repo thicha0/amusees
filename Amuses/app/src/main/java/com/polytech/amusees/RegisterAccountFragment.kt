@@ -33,7 +33,7 @@ class RegisterAccountFragment : Fragment() {
         val args = RegisterAccountFragmentArgs.fromBundle(arguments!!)
         val application = requireNotNull(this.activity).application
         val dataSource = MyDatabase.getInstance(application).userDao
-        val viewModelFactory = RegisterAccountViewModelFactory(dataSource, application, args.user.id)
+        val viewModelFactory = RegisterAccountViewModelFactory(dataSource, application, args.user)
 
         viewModel =
             ViewModelProviders.of(
@@ -45,6 +45,10 @@ class RegisterAccountFragment : Fragment() {
         binding.apply {
             tvTitle.text = getString(R.string.register_title)
             btNext.text = getString(R.string.next_button)
+        }
+
+        binding.ibInformation.setOnClickListener {
+            Toast.makeText(activity, getString(R.string.password_information), Toast.LENGTH_LONG).show()
         }
 
         viewModel.alert.observe(this, Observer { message ->
