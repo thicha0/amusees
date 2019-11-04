@@ -67,32 +67,23 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Country TODO liste déroulante/Spinner -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ev_country"
-            android:layout_width="0dp"
+        <Spinner
+            android:id="@+id/sp_country"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ev_city">
+            app:layout_constraintTop_toBottomOf="@id/ev_city"
+            android:gravity="end"
+            android:textAlignment="center" />
 
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ti_country"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="@string/country"
-                android:text="@={viewModel.user.country}" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/bt_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ev_country"
+            app:layout_constraintTop_toBottomOf="@id/sp_country"
             android:onClick="@{() -> viewModel.onValidateLocation()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -84,7 +84,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- TODO information on how to write password (length>8/uppercase/lowercase/special character)-->
         <ImageButton
             android:id="@+id/ib_information"
             android:src="@mipmap/ic_info"

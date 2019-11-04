@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,8 +15,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.polytech.amusees.database.MyDatabase
 import com.polytech.amusees.databinding.FragmentRegisterLocationBinding
+import com.polytech.amusees.viewmodel.Countries
 import com.polytech.amusees.viewmodel.RegisterLocationViewModel
 import com.polytech.amusees.viewmodelfactory.RegisterLocationViewModelFactory
+import kotlinx.android.synthetic.main.fragment_register_location.*
 
 
 class RegisterLocationFragment : Fragment() {
@@ -44,6 +48,17 @@ class RegisterLocationFragment : Fragment() {
         binding.apply {
             tvTitle.text = getString(R.string.register_title)
             btNext.text = getString(R.string.next_button)
+            spCountry.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, Countries.ZIM.countryNames())
+            spCountry.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    //
+                }
+
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    viewModel?.onCountrySelected(position)
+                }
+
+            }
         }
 
         viewModel.alert.observe(this, Observer { message ->
