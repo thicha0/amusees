@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.polytech.amusees.adapter.DebugAdapter
+import com.polytech.amusees.adapter.MuseeAdapter
 import com.polytech.amusees.database.MyDatabase
 import com.polytech.amusees.databinding.FragmentListMuseesBinding
 import com.polytech.amusees.viewmodel.ListMuseesViewModel
@@ -31,7 +33,7 @@ class ListMuseesFragment : Fragment() {
         val args = ListMuseesFragmentArgs.fromBundle(arguments!!)
         val application = requireNotNull(this.activity).application
         val dataSource = MyDatabase.getInstance(application).userDao
-        val viewModelFactory = ListMuseesViewModelFactory(dataSource, application,args.user.id)
+        val viewModelFactory = ListMuseesViewModelFactory(dataSource, application)
 
         viewModel =
             ViewModelProviders.of(
@@ -54,6 +56,15 @@ class ListMuseesFragment : Fragment() {
                     ListMuseesFragmentDirections.actionListMuseesFragmentToLoginFragment()
                 )
                 viewModel.doneNavigating()
+            }
+        })
+
+        val adapter = MuseeAdapter()
+        binding.list.adapter = adapter
+
+        viewModel.musees.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
             }
         })
 
