@@ -5,16 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.polytech.amusees.databinding.ItemDebugViewBinding
 import com.polytech.amusees.databinding.ItemMuseeViewBinding
-import com.polytech.amusees.model.Musee
-import com.polytech.amusees.model.User
+import com.polytech.amusees.service.Record
 
-class MuseeAdapter : ListAdapter<Musee, MuseeAdapter.ViewHolder>(MuseeDiffCallback()) {
+class MuseeAdapter(val clickListener: MuseeListener) : ListAdapter<Record, MuseeAdapter.ViewHolder>(MuseeDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+        holder.bind(getItem(position)!!, clickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,8 +21,9 @@ class MuseeAdapter : ListAdapter<Musee, MuseeAdapter.ViewHolder>(MuseeDiffCallba
     class ViewHolder private constructor(val binding: ItemMuseeViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Musee) {
+        fun bind(item: Record, clickListener: MuseeListener) {
             binding.musee = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -39,17 +37,17 @@ class MuseeAdapter : ListAdapter<Musee, MuseeAdapter.ViewHolder>(MuseeDiffCallba
     }
 }
 
-class MuseeDiffCallback : DiffUtil.ItemCallback<Musee>() {
-    override fun areItemsTheSame(oldItem: Musee, newItem: Musee): Boolean {
-        return oldItem.id == newItem.id
+class MuseeDiffCallback : DiffUtil.ItemCallback<Record>() {
+    override fun areItemsTheSame(oldItem: Record, newItem: Record): Boolean {
+        return oldItem.recordid == newItem.recordid
     }
 
-    override fun areContentsTheSame(oldItem: Musee, newItem: Musee): Boolean {
+    override fun areContentsTheSame(oldItem: Record, newItem: Record): Boolean {
         return oldItem == newItem
     }
 }
 
 
-class MuseeListener(val clickListener: (museeId: Long) -> Unit) {
-    fun onClick(musee: Musee) = clickListener(musee.id)
+class MuseeListener(val clickListener: (museeId: String) -> Unit) {
+    fun onClick(musee: Record) = clickListener(musee.recordid)
 }

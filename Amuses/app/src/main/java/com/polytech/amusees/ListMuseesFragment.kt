@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.polytech.amusees.adapter.DebugAdapter
 import com.polytech.amusees.adapter.MuseeAdapter
+import com.polytech.amusees.adapter.MuseeListener
 import com.polytech.amusees.database.MyDatabase
 import com.polytech.amusees.databinding.FragmentListMuseesBinding
 import com.polytech.amusees.viewmodel.ListMuseesViewModel
@@ -41,28 +42,32 @@ class ListMuseesFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        Toast.makeText(activity, "Bienvenue " + viewModel.user.value?.login , Toast.LENGTH_SHORT).show()
+//        Toast.makeText(activity, "Bienvenue " + viewModel.user.value?.login , Toast.LENGTH_SHORT).show()
 
-        binding.apply {
-            //
-        }
-
-        viewModel.navigateToLoginFragment.observe(this, Observer { code ->
-            code?.let {
-                val message = "Veuillez vous connecter avec votre compte !"
-                Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
-
-                this.findNavController().navigate(
-                    ListMuseesFragmentDirections.actionListMuseesFragmentToLoginFragment()
-                )
-                viewModel.doneNavigating()
-            }
+//        binding.apply {
+//            //
+//        }
+//
+//        viewModel.navigateToLoginFragment.observe(this, Observer { code ->
+//            code?.let {
+//                val message = "Veuillez vous connecter avec votre compte !"
+//                Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
+//
+//                this.findNavController().navigate(
+//                    ListMuseesFragmentDirections.actionListMuseesFragmentToLoginFragment()
+//                )
+//                viewModel.doneNavigating()
+//            }
+//        })
+//      TODO: Trier dessus
+        val adapter = MuseeAdapter(MuseeListener { museeId ->
+            Toast.makeText(this.context, "$museeId clicked",Toast.LENGTH_SHORT).show()
         })
-
-        val adapter = MuseeAdapter()
         binding.list.adapter = adapter
 
-        viewModel.musees.observe(viewLifecycleOwner, Observer {
+        Toast.makeText(this.context,viewModel.response.value,Toast.LENGTH_SHORT).show()
+
+        viewModel.properties.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }

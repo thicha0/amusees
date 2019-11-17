@@ -14,7 +14,7 @@ class ListMuseesViewModelFactory (
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ListMuseesViewModel::class.java)) {
-            return ListMuseesViewModel(dataSource, application) as T
+            return ListMuseesViewModel() as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
