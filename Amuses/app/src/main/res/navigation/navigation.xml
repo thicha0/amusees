@@ -13,9 +13,6 @@
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_registerFragment"
-            app:destination="@id/registerPersonnalFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_debugFragment"
             app:destination="@id/debugFragment" />
     </fragment>
@@ -47,6 +44,9 @@
         <action
             android:id="@+id/action_loginFragment_to_ListMuseesFragment"
             app:destination="@id/listMuseesFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerPersonnalFragment"
+            app:destination="@id/registerPersonnalFragment" />
     </fragment>
 
     <fragment

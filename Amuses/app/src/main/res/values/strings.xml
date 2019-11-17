@@ -4,6 +4,7 @@
     <string name="welcome">Bienvenue !</string>
     <string name="register_title">Créer un compte</string>
     <string name="login_title">Connexion</string>
+    <string name="enter">Entrer</string>
 
     <string name="gender">Genre</string>
     <string name="lastname">Nom</string>

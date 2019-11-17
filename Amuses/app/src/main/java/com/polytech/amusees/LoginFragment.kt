@@ -41,8 +41,10 @@ class LoginFragment : Fragment() {
         binding.apply {
             tvTitle.text = getString(R.string.login_title)
             btLogin.text = getString(R.string.login_button)
+            btRegister.text = getString(R.string.register_title)
         }
 
+        //Login
         viewModel.navigateToListMuseesFragment.observe(this, Observer { user ->
             user?.let {
                 val message = "Bienvenue " +
@@ -53,6 +55,19 @@ class LoginFragment : Fragment() {
                     LoginFragmentDirections.actionLoginFragmentToListMuseesFragment(user)
                 )
                 viewModel.doneNavigating()
+            }
+        })
+
+
+        //Register
+        viewModel.navigateToRegister.observe(this, Observer { bool ->
+            bool?.let {
+                if (bool) {
+                    this.findNavController().navigate(
+                        LoginFragmentDirections.actionLoginFragmentToRegisterPersonnalFragment()
+                    )
+                    viewModel.doneNavigating()
+                }
             }
         })
 

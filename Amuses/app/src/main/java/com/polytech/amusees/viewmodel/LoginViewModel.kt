@@ -100,8 +100,21 @@ class LoginViewModel(
         }
     }
 
+    //register
+    private val _navigateToRegister = MutableLiveData<Boolean>()
+
+    val navigateToRegister: LiveData<Boolean>
+        get() = _navigateToRegister
+
+
+    fun onCreateAccount() {
+        Log.i("200","Click register")
+        _navigateToRegister.value = true
+    }
+
     fun doneNavigating() {
         _navigateToListMuseesFragment.value = null
+        _navigateToRegister.value = false
     }
 
     private suspend fun testLogin(): Long {

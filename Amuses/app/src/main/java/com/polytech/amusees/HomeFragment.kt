@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.polytech.amusees.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -24,39 +23,18 @@ class HomeFragment : Fragment() {
 
 
         binding.apply {
-            twTitle.text = getString(R.string.welcome)
-            btLogin.text = getString(R.string.login_title)
-            btRegister.text = getString(R.string.register_title)
-            btDebug.text = getString(R.string.debug)
+            btEnter.text = getString(R.string.enter)
         }
 
-        binding.btLogin.setOnClickListener {
-            login(it)
-        }
-
-        binding.btRegister.setOnClickListener {
-            register(it)
-        }
-
-        binding.btDebug.setOnClickListener {
-            debug(it)
+        binding.btEnter.setOnClickListener {
+            enter(it)
         }
 
         return binding.root
     }
 
-    private fun login(view: View) {
+    private fun enter(view: View) {
         Toast.makeText(activity, "Connexion !", Toast.LENGTH_SHORT).show()
         view.findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
-    }
-
-    private fun register(view: View) {
-        Toast.makeText(activity, "Créer un compte !", Toast.LENGTH_SHORT).show()
-        this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToRegisterFragment())
-    }
-
-    private fun debug(view: View) {
-        Toast.makeText(activity, "Debug !", Toast.LENGTH_SHORT).show()
-        this.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDebugFragment())
     }
 }

@@ -9,8 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
-import com.polytech.amusees.adapter.DebugAdapter
 import com.polytech.amusees.adapter.MuseeAdapter
 import com.polytech.amusees.adapter.MuseeListener
 import com.polytech.amusees.database.MyDatabase
