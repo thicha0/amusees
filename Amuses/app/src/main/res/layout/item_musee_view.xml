@@ -5,7 +5,7 @@
     <data>
         <variable
             name="musee"
-            type="com.polytech.amusees.service.Record" />
+            type="com.polytech.amusees.model.Musee" />
         <variable
             name="clickListener"
             type="com.polytech.amusees.adapter.MuseeListener" />
@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="@{musee.fields.nom_du_musee}"
+                android:text="@{musee.nom}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textSize="15sp"
                 app:layout_constraintLeft_toRightOf="@+id/image"
@@ -50,7 +50,7 @@
                 android:id="@+id/tv_firstname_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{musee.fields.ville}"
+                android:text="@{musee.ville}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textSize="12sp"
                 app:layout_constraintLeft_toRightOf="@+id/image"

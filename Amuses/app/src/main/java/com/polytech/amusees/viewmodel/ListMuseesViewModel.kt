@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.polytech.amusees.model.Musee
 import com.polytech.amusees.service.MyApi
 import com.polytech.amusees.service.Record
 import kotlinx.coroutines.*
@@ -89,9 +90,9 @@ class ListMuseesViewModel : ViewModel() {
     val response: LiveData<String>
         get() = _response
 
-    private val _properties = MutableLiveData<List<Record>>()
-    val properties: LiveData<List<Record>>
-        get() = _properties
+    private val _musees = MutableLiveData<List<Musee>>()
+    val musees: LiveData<List<Musee>>
+        get() = _musees
 
     private var viewModelJob = Job()
 
@@ -108,13 +109,35 @@ class ListMuseesViewModel : ViewModel() {
                 Log.i("getMusee","started")
                 var result = getMuseesDeferred.await()
                 var listResult = result.records
-                _response.value = "Sccuès: ${listResult.size} musées récupérés"
-                _properties.value = listResult
+                _response.value = "Succès: ${listResult.size} musées récupérés"
+
+                var listMusee : MutableList<Musee> = mutableListOf()
+                var index = 0
+                for (record in listResult) {
+                    listMusee.add(index, recordToMusee(record))
+                    Log.i("Musee","+1")
+                    index++
+                }
+                _musees.value = listMusee
             } catch (e: Exception) {
                 _response.value = "Echec: ${e.message}"
             }
             Log.i("getMusee","done "+_response.value)
         }
+    }
+
+    private fun recordToMusee(record: Record): Musee {
+        return Musee(record.fields?.nom_du_musee,
+            record.fields?.new_regions,
+            record.fields?.nomdep,
+            record.fields?.ville,
+            record.fields?.adr,
+            record.fields?.coordonnees_finales?.get(0)?:48.8566,
+            record.fields?.coordonnees_finales?.get(1)?:2.3522,
+            record.fields?.sitweb,
+            record.fields?.telephone1,
+            record.fields?.periode_ouverture,
+            record.fields?.ref_musee)
     }
 
     override fun onCleared() {

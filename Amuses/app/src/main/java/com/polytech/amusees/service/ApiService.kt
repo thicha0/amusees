@@ -22,7 +22,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface MyApiService {
-    @GET("api/records/1.0/search/?dataset=liste-et-localisation-des-musees-de-france%40culture&rows=100")
+    @GET("api/records/1.0/search/?dataset=liste-et-localisation-des-musees-de-france%40culture&rows=10")
     fun getMusees(): Deferred<Response>
 }
 

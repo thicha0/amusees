@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.polytech.amusees.databinding.ItemMuseeViewBinding
+import com.polytech.amusees.model.Musee
 import com.polytech.amusees.service.Record
 
-class MuseeAdapter(val clickListener: MuseeListener) : ListAdapter<Record, MuseeAdapter.ViewHolder>(MuseeDiffCallback()) {
+class MuseeAdapter(val clickListener: MuseeListener) : ListAdapter<Musee, MuseeAdapter.ViewHolder>(MuseeDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position)!!, clickListener)
@@ -21,7 +22,7 @@ class MuseeAdapter(val clickListener: MuseeListener) : ListAdapter<Record, Musee
     class ViewHolder private constructor(val binding: ItemMuseeViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Record, clickListener: MuseeListener) {
+        fun bind(item: Musee, clickListener: MuseeListener) {
             binding.musee = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
@@ -37,17 +38,17 @@ class MuseeAdapter(val clickListener: MuseeListener) : ListAdapter<Record, Musee
     }
 }
 
-class MuseeDiffCallback : DiffUtil.ItemCallback<Record>() {
-    override fun areItemsTheSame(oldItem: Record, newItem: Record): Boolean {
-        return oldItem.recordid == newItem.recordid
+class MuseeDiffCallback : DiffUtil.ItemCallback<Musee>() {
+    override fun areItemsTheSame(oldItem: Musee, newItem: Musee): Boolean {
+        return oldItem.refmusee == newItem.refmusee
     }
 
-    override fun areContentsTheSame(oldItem: Record, newItem: Record): Boolean {
+    override fun areContentsTheSame(oldItem: Musee, newItem: Musee): Boolean {
         return oldItem == newItem
     }
 }
 
 
-class MuseeListener(val clickListener: (museeId: String) -> Unit) {
-    fun onClick(musee: Record) = clickListener(musee.recordid)
+class MuseeListener(val clickListener: (musee: Musee) -> Unit) {
+    fun onClick(musee: Musee) = clickListener(musee)
 }
