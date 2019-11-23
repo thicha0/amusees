@@ -12,11 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.polytech.amusees.databinding.FragmentHomeBinding
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlin.math.log
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var animFadeout: Animation
+    private lateinit var animFadeout2: Animation
     private lateinit var animZoominFadeout: Animation
+    private lateinit var animFadein: Animation
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +38,14 @@ class HomeFragment : Fragment() {
             this.context,
             R.anim.fade_out)
 
+        animFadein = AnimationUtils.loadAnimation(
+            this.context,
+            R.anim.fade_in)
+
+        animFadeout2 = AnimationUtils.loadAnimation(
+            this.context,
+            R.anim.fade_out)
+
         animZoominFadeout = AnimationUtils.loadAnimation(
             this.context,
             R.anim.zoom_in_fade_out)
@@ -42,9 +53,25 @@ class HomeFragment : Fragment() {
         binding.btEnter.setOnClickListener {
             bt_enter.startAnimation(animFadeout)
             background.startAnimation(animZoominFadeout)
+            logo.startAnimation(animFadein)
         }
 
         animZoominFadeout.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(p0: Animation?) {
+//                //
+            }
+
+            override fun onAnimationRepeat(p0: Animation?) {
+//                //
+            }
+
+            override fun onAnimationEnd(p0: Animation?) {
+                Thread.sleep(1000)
+                logo.startAnimation(animFadeout2)
+            }
+        })
+
+        animFadeout2.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(p0: Animation?) {
 //                //
             }
