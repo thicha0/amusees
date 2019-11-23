@@ -73,6 +73,7 @@ class ListMuseesFragment : Fragment() {
         viewModel.musees.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
+                binding.load.visibility = View.GONE
             }
         })
 
