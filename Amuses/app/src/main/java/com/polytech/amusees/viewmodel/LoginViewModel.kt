@@ -78,12 +78,12 @@ class LoginViewModel(
             var user = user.value ?: return@launch
 
             if(user.login.isNullOrEmpty()) {
-                _alert.value = "Veuillez saisir un identifiant"
+                _alert.value = "Veuillez saisir votre identifiant"
                 return@launch
             }
 
             if(user.password.isNullOrEmpty()) {
-                _alert.value = "Veuillez saisir un mot de passe"
+                _alert.value = "Veuillez saisir votre mot de passe"
                 return@launch
             }
 

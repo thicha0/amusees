@@ -71,6 +71,14 @@ class LoginFragment : Fragment() {
             }
         })
 
+        //alert
+        viewModel.alert.observe(this, Observer { message ->
+            message?.let {
+                Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
+                viewModel.doneAlerting()
+            }
+        })
+
         return binding.root
     }
 }

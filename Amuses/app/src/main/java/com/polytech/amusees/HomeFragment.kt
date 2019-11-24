@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.polytech.amusees.databinding.FragmentHomeBinding
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlin.math.log
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -89,7 +87,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun enter(view: View?) {
-        Toast.makeText(activity, "Connexion !", Toast.LENGTH_SHORT).show()
         view?.findNavController()?.navigate(R.id.action_homeFragment_to_loginFragment)
     }
 }
