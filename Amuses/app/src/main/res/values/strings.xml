@@ -33,6 +33,7 @@
     <string name="next_button">Suivant</string>
     <string name="previous_button">Précédent</string>
     <string name="debug">Debug</string>
+    <string name="register_link"><u>Pas de compte ? Créez-en un !</u></string>
 
     <string name="man">Homme</string>
     <string name="woman">Femme</string>

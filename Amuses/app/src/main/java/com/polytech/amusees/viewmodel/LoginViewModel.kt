@@ -108,7 +108,6 @@ class LoginViewModel(
 
 
     fun onCreateAccount() {
-        Log.i("200","Click register")
         _navigateToRegister.value = true
     }
 
@@ -124,7 +123,7 @@ class LoginViewModel(
         }
         return id
     }
-
+    
     fun encode(type:String, input: String): String {
         val HEX_CHARS = "0123456789ABCDEF"
         val bytes = MessageDigest
