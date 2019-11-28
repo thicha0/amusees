@@ -36,7 +36,6 @@ class RegisterPersonnalViewModel(
 
     fun onGender(gender: String) {
         user.value?.gender = gender
-        Log.i("Gender changed to ", gender)
     }
 
     //alert

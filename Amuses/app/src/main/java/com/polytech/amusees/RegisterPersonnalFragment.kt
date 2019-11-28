@@ -83,7 +83,6 @@ class RegisterPersonnalFragment : Fragment() {
                     viewModel.user.value?.birthdayDate = Date(year,monthOfYear,dayOfMonth).time
 
                 }, year, month, day)
-
             dpd.show()
         }
 
@@ -94,10 +93,9 @@ class RegisterPersonnalFragment : Fragment() {
             }
         })
 
+        //continue
         viewModel.navigateToRegisterLocationFragment.observe(this, Observer { user ->
             user?.let {
-                Log.i("User",viewModel.user.value.toString())
-
                 this.findNavController().navigate(RegisterPersonnalFragmentDirections.actionRegisterPersonnalFragmentToRegisterLocationFragment(user))
                 viewModel.doneNavigating()
             }

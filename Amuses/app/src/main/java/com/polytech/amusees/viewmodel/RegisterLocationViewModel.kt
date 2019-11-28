@@ -269,12 +269,11 @@ class RegisterLocationViewModel(
 
 
     fun onValidateLocation() {
-        Log.i("200","Click location")
         uiScope.launch {
             val user = user.value ?: return@launch
 
-            if(user.adress.isNullOrEmpty()) { //TODO vérif format ?
-                _alert.value = "Veuillez saisir votre adresse"
+            if(user.country.isNullOrEmpty()) {
+                _alert.value = "Veuillez sélectionner votre pays"
                 return@launch
             }
 
@@ -283,12 +282,26 @@ class RegisterLocationViewModel(
                 return@launch
             }
 
-            if(user.country.isNullOrEmpty()) {
-                _alert.value = "Veuillez sélectionner votre pays"
+            if(user.adress.isNullOrEmpty()) { //TODO vérif format ?
+                _alert.value = "Veuillez saisir votre adresse"
                 return@launch
             }
 
             _navigateToRegisterAccountFragment.value = user
+        }
+    }
+
+    //gobackto personnal
+    private val _navigateToPersonnalAccountFragment = MutableLiveData<User>()
+
+    val navigateToPersonnalAccountFragment: LiveData<User>
+        get() = _navigateToPersonnalAccountFragment
+
+    fun onGoBack() {
+        uiScope.launch {
+            val user = user.value ?: return@launch
+
+            _navigateToPersonnalAccountFragment.value = user
         }
     }
 
@@ -298,6 +311,7 @@ class RegisterLocationViewModel(
 
     fun doneNavigating() {
         _navigateToRegisterAccountFragment.value = null
+        _navigateToPersonnalAccountFragment.value = null
     }
 
     override fun onCleared() {

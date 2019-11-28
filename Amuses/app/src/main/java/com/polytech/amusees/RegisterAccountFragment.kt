@@ -45,6 +45,7 @@ class RegisterAccountFragment : Fragment() {
         binding.apply {
             tvTitle.text = getString(R.string.register_title)
             btNext.text = getString(R.string.next_button)
+            btPrevious.text = getString(R.string.previous_button)
         }
 
         binding.ibInformation.setOnClickListener {
@@ -58,6 +59,7 @@ class RegisterAccountFragment : Fragment() {
             }
         })
 
+        //end
         viewModel.navigateToLoginFragment.observe(this, Observer { user ->
             user?.let {
                 Log.i("User",viewModel.user.value.toString())
@@ -65,6 +67,16 @@ class RegisterAccountFragment : Fragment() {
                 this.findNavController().navigate(
                     RegisterAccountFragmentDirections.actionRegisterAccountFragmentToLoginFragment()
                 )
+                viewModel.doneNavigating()
+            }
+        })
+
+        //goback
+        viewModel.navigateToRegisterLocationFragment.observe(this, Observer { user ->
+            user?.let {
+                Log.i("User",viewModel.user.value.toString())
+
+                this.findNavController().navigate(RegisterAccountFragmentDirections.actionRegisterAccountFragmentToRegisterLocationFragment(user))
                 viewModel.doneNavigating()
             }
         })

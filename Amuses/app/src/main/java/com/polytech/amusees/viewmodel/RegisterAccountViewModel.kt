@@ -185,8 +185,23 @@ class RegisterAccountViewModel(
         return true
     }
 
+    //gobackto personnal
+    private val _navigateToRegisterLocationFragment = MutableLiveData<User>()
+
+    val navigateToRegisterLocationFragment: LiveData<User>
+        get() = _navigateToRegisterLocationFragment
+
+    fun onGoBack() {
+        uiScope.launch {
+            val user = user.value ?: return@launch
+
+            _navigateToRegisterLocationFragment.value = user
+        }
+    }
+
     fun doneNavigating() {
         _navigateToLoginFragment.value = null
+        _navigateToRegisterLocationFragment.value = null
     }
 
     override fun onCleared() {

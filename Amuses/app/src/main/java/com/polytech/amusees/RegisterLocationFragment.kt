@@ -48,6 +48,7 @@ class RegisterLocationFragment : Fragment() {
         binding.apply {
             tvTitle.text = getString(R.string.register_title)
             btNext.text = getString(R.string.next_button)
+            btPrevious.text = getString(R.string.previous_button)
             spCountry.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, Countries.ZIM.countryNames())
             spCountry.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -68,11 +69,22 @@ class RegisterLocationFragment : Fragment() {
             }
         })
 
+        //continue
         viewModel.navigateToRegisterAccountFragment.observe(this, Observer { user ->
             user?.let {
                 Log.i("User",viewModel.user.value.toString())
 
                 this.findNavController().navigate(RegisterLocationFragmentDirections.actionRegisterLocationFragmentToRegisterAccountFragment(user))
+                viewModel.doneNavigating()
+            }
+        })
+
+        //goback
+        viewModel.navigateToPersonnalAccountFragment.observe(this, Observer { user ->
+            user?.let {
+                Log.i("User",viewModel.user.value.toString())
+
+                this.findNavController().navigate(RegisterLocationFragmentDirections.actionRegisterLocationFragmentToRegisterPersonnalFragment(user))
                 viewModel.doneNavigating()
             }
         })

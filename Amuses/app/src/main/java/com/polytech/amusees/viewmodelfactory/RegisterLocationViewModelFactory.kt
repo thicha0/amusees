@@ -15,7 +15,7 @@ class RegisterLocationViewModelFactory (
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(RegisterLocationViewModel::class.java)) {
-            return RegisterLocationViewModel(dataSource, application,user) as T // userID
+            return RegisterLocationViewModel(dataSource, application,user) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

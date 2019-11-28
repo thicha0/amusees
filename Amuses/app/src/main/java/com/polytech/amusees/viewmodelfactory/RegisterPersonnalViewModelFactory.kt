@@ -15,7 +15,7 @@ class RegisterPersonnalViewModelFactory (
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(RegisterPersonnalViewModel::class.java)) {
-            return RegisterPersonnalViewModel(dataSource, application,user) as T // userID
+            return RegisterPersonnalViewModel(dataSource, application,user) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

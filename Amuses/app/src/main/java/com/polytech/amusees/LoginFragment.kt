@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.polytech.amusees.database.MyDatabase
 import com.polytech.amusees.databinding.FragmentLoginBinding
+import com.polytech.amusees.model.User
 import com.polytech.amusees.viewmodel.LoginViewModel
 import com.polytech.amusees.viewmodelfactory.LoginViewModelFactory
 
@@ -59,7 +60,7 @@ class LoginFragment : Fragment() {
             bool?.let {
                 if (bool) {
                     this.findNavController().navigate(
-                        LoginFragmentDirections.actionLoginFragmentToRegisterPersonnalFragment()
+                        LoginFragmentDirections.actionLoginFragmentToRegisterPersonnalFragment(User())
                     )
                     viewModel.doneNavigating()
                 }

@@ -7,6 +7,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:buttonStyle">@style/MyButton</item>
         <item name="android:background">@color/background</item>
+        <item name="android:datePickerDialogTheme">@style/DatePickerCustom</item>
     </style>
 
     <!-- Button style -->
@@ -30,6 +31,14 @@
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- TODO changer des couleurs pour que ce soit mieux -->
+    <!-- DatePicker -->
+    <style name="DatePickerCustom" parent="@style/ThemeOverlay.AppCompat.Dialog">
+        <item name="android:colorForeground">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:colorControlHighlight">@color/colorPrimary</item>
     </style>
 
 
