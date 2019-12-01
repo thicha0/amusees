@@ -38,5 +38,7 @@
     <string name="man">Homme</string>
     <string name="woman">Femme</string>
 
+    <string name="result_title">Résultat de la recherche</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

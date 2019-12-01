@@ -104,7 +104,7 @@ class ListMuseesViewModel : ViewModel() {
 
     private fun getMuseesList() {
         coroutineScope.launch {
-            var getMuseesDeferred = MyApi.retrofitService.getMusees()
+            var getMuseesDeferred = MyApi.retrofitService.getMusees(""+0)
             try {
                 Log.i("getMusee","started")
                 var result = getMuseesDeferred.await()

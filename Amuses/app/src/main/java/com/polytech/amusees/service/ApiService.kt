@@ -7,6 +7,8 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 private val BASE_URL =
     "https://data.opendatasoft.com/"
@@ -22,8 +24,12 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface MyApiService {
-    @GET("api/records/1.0/search/?dataset=liste-et-localisation-des-musees-de-france%40culture&rows=10")
-    fun getMusees(): Deferred<Response>
+    @GET("api/records/1.0/search/?dataset=liste-et-localisation-des-musees-de-france%40culture")
+    fun getMusees(@Query("start") start: String = "0",
+                  @Query("rows") rows: String = "10",
+                  @Query("sort") sort: String = "ville",
+                  @Query("refine.ville") ville: String = "LYON"
+                  ): Deferred<Response>
 }
 
 object MyApi {

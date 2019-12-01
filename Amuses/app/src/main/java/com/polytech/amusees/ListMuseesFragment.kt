@@ -44,9 +44,9 @@ class ListMuseesFragment : Fragment() {
 
 //        Toast.makeText(activity, "Bienvenue " + viewModel.user.value?.login , Toast.LENGTH_SHORT).show()
 
-//        binding.apply {
-//            //
-//        }
+        binding.apply {
+            tvTitle.text = getString(R.string.result_title)
+        }
 //
 //        viewModel.navigateToLoginFragment.observe(this, Observer { code ->
 //            code?.let {
