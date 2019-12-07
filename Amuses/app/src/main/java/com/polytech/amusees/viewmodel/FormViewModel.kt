@@ -6,6 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.polytech.amusees.database.UserDao
+import com.polytech.amusees.model.Column
+import com.polytech.amusees.model.Request
 import com.polytech.amusees.model.User
 import kotlinx.coroutines.*
 import java.security.MessageDigest
@@ -19,9 +21,9 @@ class FormViewModel(
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User>
-        get() = _user
+    private val _request = MutableLiveData<Request>()
+    val request: LiveData<Request>
+        get() = _request
 
     init {
         Log.i("FormViewModel", "created")
@@ -44,33 +46,16 @@ class FormViewModel(
     val navigateToListMuseesFragment: LiveData<User>
         get() = _navigateToListMuseesFragment
 
+    fun onRefineSelected(position: Int) {
+        request.value?.refine = Column.values()[position]
+    }
 
-    fun onValidateLogin() {
-        Log.i("200","Click login")
-        uiScope.launch {
-            var user = user.value ?: return@launch
+    fun onRowsSelected(position: Int) {
+        request.value?.rows = position*10
+    }
 
-            if(user.login.isNullOrEmpty()) {
-                _alert.value = "Veuillez saisir votre identifiant"
-                return@launch
-            }
-
-            if(user.password.isNullOrEmpty()) {
-                _alert.value = "Veuillez saisir votre mot de passe"
-                return@launch
-            }
-
-            val id = testLogin()
-            Log.i("ID",id.toString())
-            if (id > 0) {
-                _user.value?.id = id
-                _navigateToListMuseesFragment.value = user
-            }
-            else {
-                _alert.value = "L'identifant et le mot de passe ne correspondent pas"
-                return@launch
-            }
-        }
+    fun onSortSelected(position: Int) {
+        request.value?.sort = Column.values()[position]
     }
 
     //register
@@ -93,33 +78,9 @@ class FormViewModel(
         _navigateToRegister.value = false
     }
 
-    private suspend fun testLogin(): Long {
-        var id = 0L
-        withContext(Dispatchers.IO) {
-            id = database.testLogin(user.value?.login?:"",encode("SHA1",user.value?.password+""))
-        }
-        return id
-    }
-    
-    fun encode(type:String, input: String): String {
-        val HEX_CHARS = "0123456789ABCDEF"
-        val bytes = MessageDigest
-            .getInstance(type)
-            .digest(input.toByteArray())
-        val result = StringBuilder(bytes.size * 2)
-
-        bytes.forEach {
-            val i = it.toInt()
-            result.append(HEX_CHARS[i shr 4 and 0x0f])
-            result.append(HEX_CHARS[i and 0x0f])
-        }
-
-        return result.toString()
-    }
-
     override fun onCleared() {
         super.onCleared()
-        Log.i("LoginViewModel", "destroyed")
+        Log.i("FormViewModel", "destroyed")
         viewModelJob.cancel()
     }
 }

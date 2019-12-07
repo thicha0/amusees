@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.polytech.amusees.database.MyDatabase
 import com.polytech.amusees.databinding.FragmentFormBinding
+import com.polytech.amusees.model.Column
 import com.polytech.amusees.model.User
 import com.polytech.amusees.viewmodel.Countries
 import com.polytech.amusees.viewmodel.FormViewModel
@@ -44,6 +45,38 @@ class FormFragment : Fragment() {
 
         binding.apply {
             tvTitle.text = getString(R.string.form_title)
+            tvRefine.text = getString(R.string.type_search)
+            btSearch.text = getString(R.string.search_button)
+
+            spRefine.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, Column.nom.columnStrings())
+            spRefine.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    //
+                }
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    viewModel?.onRefineSelected(position)
+                }
+            }
+
+            spRows.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, arrayOf("10","20","30"))
+            spRows.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    //
+                }
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    viewModel?.onRowsSelected(position)
+                }
+            }
+
+            spSort.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, Column.nom.columnStrings())
+            spSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    //
+                }
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    viewModel?.onSortSelected(position)
+                }
+            }
         }
 
         //Form
