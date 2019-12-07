@@ -33,11 +33,21 @@
             android:name="user"
             app:argType="com.polytech.amusees.model.User" />
         <action
-            android:id="@+id/action_listMuseesFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
             android:id="@+id/action_listMuseesFragment_to_detailsFragment"
             app:destination="@+id/detailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/formFragment"
+        android:name="com.polytech.amusees.FormFragment"
+        android:label="FormFragment"
+        tools:layout="@layout/fragment_form">
+        <action
+            android:id="@+id/action_formFragment_to_listMuseesFragment"
+            app:destination="@id/listMuseesFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.polytech.amusees.model.User" />
     </fragment>
 
     <fragment
@@ -46,11 +56,11 @@
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_ListMuseesFragment"
-            app:destination="@id/listMuseesFragment" />
-        <action
             android:id="@+id/action_loginFragment_to_registerPersonnalFragment"
             app:destination="@id/registerPersonnalFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_formFragment"
+            app:destination="@id/formFragment" />
     </fragment>
 
     <fragment

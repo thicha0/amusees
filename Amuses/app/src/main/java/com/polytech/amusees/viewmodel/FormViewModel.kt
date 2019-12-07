@@ -11,10 +11,9 @@ import kotlinx.coroutines.*
 import java.security.MessageDigest
 
 
-class LoginViewModel(
+class FormViewModel(
     val database: UserDao,
-    application: Application,
-    private val userID: Long = 0L // userID
+    application: Application
 ) : AndroidViewModel(application)
 {
     private var viewModelJob = Job()
@@ -25,34 +24,8 @@ class LoginViewModel(
         get() = _user
 
     init {
-        Log.i("LoginViewModel", "created")
-        initializeUser()
-    }
-
-    private fun initializeUser() {
-        uiScope.launch {
-            _user.value = getUserFromDatabase()
-        }
-    }
-
-    private suspend fun getUserFromDatabase(): User? {
-        return withContext(Dispatchers.IO) {
-
-            var user = database.get(userID) // userID
-            if (user == null) {
-                user = User()
-                user.id = insert(user)
-            }
-            user
-        }
-    }
-
-    private suspend fun insert(user: User): Long {
-        var id = 0L
-        withContext(Dispatchers.IO) {
-            id = database.insert(user)
-        }
-        return id
+        Log.i("FormViewModel", "created")
+        //
     }
 
     //alert
@@ -66,10 +39,10 @@ class LoginViewModel(
     }
 
     //log me in
-    private val _navigateToForm = MutableLiveData<User>()
+    private val _navigateToListMuseesFragment = MutableLiveData<User>()
 
-    val navigateToForm: LiveData<User>
-        get() = _navigateToForm
+    val navigateToListMuseesFragment: LiveData<User>
+        get() = _navigateToListMuseesFragment
 
 
     fun onValidateLogin() {
@@ -91,7 +64,7 @@ class LoginViewModel(
             Log.i("ID",id.toString())
             if (id > 0) {
                 _user.value?.id = id
-                _navigateToForm.value = user
+                _navigateToListMuseesFragment.value = user
             }
             else {
                 _alert.value = "L'identifant et le mot de passe ne correspondent pas"
@@ -107,12 +80,16 @@ class LoginViewModel(
         get() = _navigateToRegister
 
 
-    fun onCreateAccount() {
-        _navigateToRegister.value = true
+    fun onValidateSearch() {
+        //
+    }
+
+    fun onAdvancedParams() {
+        //
     }
 
     fun doneNavigating() {
-        _navigateToForm.value = null
+        _navigateToListMuseesFragment.value = null
         _navigateToRegister.value = false
     }
 
