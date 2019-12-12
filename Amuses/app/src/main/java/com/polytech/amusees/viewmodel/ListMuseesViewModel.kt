@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.polytech.amusees.model.Musee
+import com.polytech.amusees.model.Request
 import com.polytech.amusees.service.MyApi
 import com.polytech.amusees.service.Record
 import kotlinx.coroutines.*
@@ -83,7 +84,7 @@ import kotlinx.coroutines.*
 
 // TODO Trier dessus
 
-class ListMuseesViewModel : ViewModel() {
+class ListMuseesViewModel(request: Request) : ViewModel() {
 
     private val _response = MutableLiveData<String>()
 
@@ -99,12 +100,15 @@ class ListMuseesViewModel : ViewModel() {
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
 
     init {
-        getMuseesList()
+        getMuseesList(request)
     }
 
-    private fun getMuseesList() {
+    private fun getMuseesList(request : Request) {
         coroutineScope.launch {
-            var getMuseesDeferred = MyApi.retrofitService.getMusees(""+0)
+            var getMuseesDeferred = MyApi.retrofitService.getMusees(""+request.page,
+                ""+request.rows,
+                ""+request.sort,
+                request.refine_value)
             try {
                 Log.i("getMusee","started")
                 var result = getMuseesDeferred.await()

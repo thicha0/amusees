@@ -25,9 +25,13 @@ class FormViewModel(
     val request: LiveData<Request>
         get() = _request
 
+    private val _params = MutableLiveData<Boolean>()
+    val params: LiveData<Boolean>
+        get() = _params
+
     init {
         Log.i("FormViewModel", "created")
-        //
+        _request.value = Request()
     }
 
     //alert
@@ -41,9 +45,9 @@ class FormViewModel(
     }
 
     //log me in
-    private val _navigateToListMuseesFragment = MutableLiveData<User>()
+    private val _navigateToListMuseesFragment = MutableLiveData<Request>()
 
-    val navigateToListMuseesFragment: LiveData<User>
+    val navigateToListMuseesFragment: LiveData<Request>
         get() = _navigateToListMuseesFragment
 
     fun onRefineSelected(position: Int) {
@@ -58,24 +62,17 @@ class FormViewModel(
         request.value?.sort = Column.values()[position]
     }
 
-    //register
-    private val _navigateToRegister = MutableLiveData<Boolean>()
-
-    val navigateToRegister: LiveData<Boolean>
-        get() = _navigateToRegister
-
-
     fun onValidateSearch() {
-        //
+        _navigateToListMuseesFragment.value = request.value
+        Log.i("Click ! ", request.value.toString())
     }
 
-    fun onAdvancedParams() {
-        //
+    fun params(isChecked: Boolean) {
+        _params.value = isChecked
     }
 
     fun doneNavigating() {
         _navigateToListMuseesFragment.value = null
-        _navigateToRegister.value = false
     }
 
     override fun onCleared() {

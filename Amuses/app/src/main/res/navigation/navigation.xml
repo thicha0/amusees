@@ -29,12 +29,12 @@
         android:name="com.polytech.amusees.ListMuseesFragment"
         android:label="ListMuseesFragment"
         tools:layout="@layout/fragment_list_musees">
-        <argument
-            android:name="user"
-            app:argType="com.polytech.amusees.model.User" />
         <action
             android:id="@+id/action_listMuseesFragment_to_detailsFragment"
             app:destination="@+id/detailsFragment" />
+        <argument
+            android:name="request"
+            app:argType="com.polytech.amusees.model.Request" />
     </fragment>
 
     <fragment

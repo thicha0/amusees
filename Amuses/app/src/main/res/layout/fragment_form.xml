@@ -25,36 +25,15 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Type de recherche -->
-        <TextView
-            android:id="@+id/tv_refine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/sp_refine"
-            app:layout_constraintBottom_toBottomOf="@id/sp_refine"
-            />
-
-        <Spinner
-            android:id="@+id/sp_refine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:spinnerMode="dialog"
-            app:layout_constraintLeft_toRightOf="@id/tv_refine"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            android:gravity="end"
-            android:textAlignment="center" />
-
         <!-- Recherche -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ev_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sp_refine">
+            app:layout_constraintTop_toBottomOf="@id/tv_title">
 
 
             <com.google.android.material.textfield.TextInputEditText
@@ -66,49 +45,107 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Paramètres avancés -->
-        <CheckBox
-            android:id="@+id/cb_params"
+        <!-- Type de recherche -->
+        <LinearLayout
+            android:id="@+id/lay_refine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ev_search"
-            android:onClick="@{() -> viewModel.onAdvancedParams()}"
-            />
+            app:layout_constraintBottom_toTopOf="@id/lay_params">
+
+            <TextView
+                android:id="@+id/tv_refine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <Spinner
+                android:id="@+id/sp_refine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:gravity="end"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <!-- Paramètres avancés -->
+        <LinearLayout
+            android:id="@+id/lay_params"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lay_refine">
+
+            <CheckBox
+                android:id="@+id/cb_params"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/tv_params"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
 
         <!-- Type de tri -->
-        <Spinner
-            android:id="@+id/sp_sort"
+        <LinearLayout
+            android:id="@+id/lay_sort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:spinnerMode="dialog"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="15dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cb_params"
-            android:gravity="end"
-            android:textAlignment="center" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lay_params">
+            <TextView
+                android:id="@+id/tv_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <Spinner
+                android:id="@+id/sp_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:gravity="end"
+                android:textAlignment="center" />
+        </LinearLayout>
 
         <!-- Nombre de résultats par page -->
-        <Spinner
-            android:id="@+id/sp_rows"
+        <LinearLayout
+            android:id="@+id/lay_rows"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:spinnerMode="dialog"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="15dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sp_sort"
-            android:gravity="end"
-            android:textAlignment="center" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lay_sort">
+            <TextView
+                android:id="@+id/tv_rows"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <Spinner
+                android:id="@+id/sp_rows"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:gravity="end"
+                android:textAlignment="center" />
+        </LinearLayout>
 
         <!-- Lancer la recherche -->
         <Button
             android:id="@+id/bt_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:onClick="@{() -> viewModel.onValidateSearch()}" />

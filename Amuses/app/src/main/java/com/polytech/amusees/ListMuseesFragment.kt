@@ -34,7 +34,7 @@ class ListMuseesFragment : Fragment() {
         val args = ListMuseesFragmentArgs.fromBundle(arguments!!)
         val application = requireNotNull(this.activity).application
         val dataSource = MyDatabase.getInstance(application).userDao
-        val viewModelFactory = ListMuseesViewModelFactory(dataSource, application)
+        val viewModelFactory = ListMuseesViewModelFactory(application,args.request)
 
         viewModel =
             ViewModelProviders.of(

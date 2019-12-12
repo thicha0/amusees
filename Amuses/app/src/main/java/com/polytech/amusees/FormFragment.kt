@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,10 +13,11 @@ import androidx.navigation.fragment.findNavController
 import com.polytech.amusees.database.MyDatabase
 import com.polytech.amusees.databinding.FragmentFormBinding
 import com.polytech.amusees.model.Column
-import com.polytech.amusees.model.User
-import com.polytech.amusees.viewmodel.Countries
 import com.polytech.amusees.viewmodel.FormViewModel
 import com.polytech.amusees.viewmodelfactory.FormViewModelFactory
+
+
+
 
 class FormFragment : Fragment() {
     private lateinit var binding: FragmentFormBinding
@@ -47,8 +46,25 @@ class FormFragment : Fragment() {
             tvTitle.text = getString(R.string.form_title)
             tvRefine.text = getString(R.string.type_search)
             btSearch.text = getString(R.string.search_button)
+            tvParams.text = getString(R.string.params)
+            tvRows.text = getString(R.string.rows)
+            tvSort.text = getString(R.string.sort)
 
-            spRefine.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, Column.nom.columnStrings())
+            layRows.visibility = View.GONE
+            laySort.visibility = View.GONE
+            cbParams.setOnCheckedChangeListener {
+                    buttonView: View, isChecked: Boolean ->
+                viewModel?.params(isChecked)
+                if(isChecked) {
+                    layRows.visibility = View.VISIBLE
+                    laySort.visibility = View.VISIBLE
+                } else {
+                    layRows.visibility = View.GONE
+                    laySort.visibility = View.GONE
+                }
+            }
+
+            spRefine.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, Column.nom_du_musee.columnStrings())
             spRefine.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     //
@@ -68,7 +84,7 @@ class FormFragment : Fragment() {
                 }
             }
 
-            spSort.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, Column.nom.columnStrings())
+            spSort.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, Column.nom_du_musee.columnStrings())
             spSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     //
@@ -80,17 +96,13 @@ class FormFragment : Fragment() {
         }
 
         //Form
-        viewModel.navigateToListMuseesFragment.observe(this, Observer { user ->
-            user?.let {
-
-            }
-        })
-
-
-        //Register
-        viewModel.navigateToRegister.observe(this, Observer { bool ->
-            bool?.let {
-
+        viewModel.navigateToListMuseesFragment.observe(this, Observer { request ->
+            request?.let {
+                Toast.makeText(this.context, request.toString(), Toast.LENGTH_SHORT).show()
+                this.findNavController().navigate(
+                    FormFragmentDirections.actionFormFragmentToListMuseesFragment(request)
+                )
+                viewModel.doneNavigating()
             }
         })
 
