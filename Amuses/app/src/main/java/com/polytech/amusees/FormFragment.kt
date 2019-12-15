@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.polytech.amusees.database.MyDatabase
 import com.polytech.amusees.databinding.FragmentFormBinding
-import com.polytech.amusees.model.Column
 import com.polytech.amusees.viewmodel.FormViewModel
 import com.polytech.amusees.viewmodelfactory.FormViewModelFactory
 
@@ -44,7 +43,6 @@ class FormFragment : Fragment() {
 
         binding.apply {
             tvTitle.text = getString(R.string.form_title)
-            tvRefine.text = getString(R.string.type_search)
             btSearch.text = getString(R.string.search_button)
             tvParams.text = getString(R.string.params)
             tvRows.text = getString(R.string.rows)
@@ -64,16 +62,6 @@ class FormFragment : Fragment() {
                 }
             }
 
-            spRefine.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, Column.nom_du_musee.columnStrings())
-            spRefine.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    //
-                }
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    viewModel?.onRefineSelected(position)
-                }
-            }
-
             spRows.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, arrayOf("10","20","30"))
             spRows.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -84,7 +72,7 @@ class FormFragment : Fragment() {
                 }
             }
 
-            spSort.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, Column.nom_du_musee.columnStrings())
+            spSort.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, arrayOf("Nom du musée", "Ville", "Département", "Région"))
             spSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     //

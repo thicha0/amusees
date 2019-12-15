@@ -27,8 +27,8 @@ interface MyApiService {
     @GET("api/records/1.0/search/?dataset=liste-et-localisation-des-musees-de-france%40culture")
     fun getMusees(@Query("start") start: String = "0",
                   @Query("rows") rows: String = "10",
-                  @Query("sort") sort: String,
-                  @Query("refine.ville") ville: String?
+                  @Query("sort") sort: String = "nom_du_musee",
+                  @Query("q") query: String?
                   ): Deferred<Response>
 }
 

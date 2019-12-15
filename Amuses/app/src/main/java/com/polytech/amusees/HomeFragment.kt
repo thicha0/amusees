@@ -19,6 +19,9 @@ class HomeFragment : Fragment() {
     private lateinit var animZoominFadeout: Animation
     private lateinit var animFadein: Animation
 
+    //pour empêcher de recliquer sur le bouton et reset l'animation
+    private var animationStarted: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,9 +52,13 @@ class HomeFragment : Fragment() {
             R.anim.zoom_in_fade_out)
 
         binding.btEnter.setOnClickListener {
-            bt_enter.startAnimation(animFadeout)
-            background.startAnimation(animZoominFadeout)
-            logo.startAnimation(animFadein)
+            if (!animationStarted) {
+                bt_enter.startAnimation(animFadeout)
+                background.startAnimation(animZoominFadeout)
+                logo.startAnimation(animFadein)
+
+                animationStarted = true
+            }
         }
 
         animZoominFadeout.setAnimationListener(object : Animation.AnimationListener {

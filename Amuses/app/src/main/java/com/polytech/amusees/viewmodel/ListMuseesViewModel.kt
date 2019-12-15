@@ -87,7 +87,6 @@ import kotlinx.coroutines.*
 class ListMuseesViewModel(request: Request) : ViewModel() {
 
     private val _response = MutableLiveData<String>()
-
     val response: LiveData<String>
         get() = _response
 
@@ -95,12 +94,25 @@ class ListMuseesViewModel(request: Request) : ViewModel() {
     val musees: LiveData<List<Musee>>
         get() = _musees
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
+    private val _currentPage = MutableLiveData<Int>()
+    val currentPage: LiveData<Int>
+        get() = _currentPage
+
+    private val _nbResults = MutableLiveData<Int>()
+    val nbResults: LiveData<Int>
+        get() = _nbResults
+
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
 
     init {
         getMuseesList(request)
+        _isLoading.value = true
     }
 
     private fun getMuseesList(request : Request) {
@@ -108,7 +120,7 @@ class ListMuseesViewModel(request: Request) : ViewModel() {
             var getMuseesDeferred = MyApi.retrofitService.getMusees(""+request.page,
                 ""+request.rows,
                 ""+request.sort,
-                request.refine_value)
+                ""+request.query?.toLowerCase())
             try {
                 Log.i("getMusee","started")
                 var result = getMuseesDeferred.await()
@@ -123,9 +135,12 @@ class ListMuseesViewModel(request: Request) : ViewModel() {
                     index++
                 }
                 _musees.value = listMusee
+                _currentPage.value = request.page + 1
+                _nbResults.value = result.nhits
             } catch (e: Exception) {
                 _response.value = "Echec: ${e.message}"
             }
+            _isLoading.value = false
             Log.i("getMusee","done "+_response.value)
         }
     }

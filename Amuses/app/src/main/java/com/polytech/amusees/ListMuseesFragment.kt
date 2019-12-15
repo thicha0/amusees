@@ -47,19 +47,7 @@ class ListMuseesFragment : Fragment() {
         binding.apply {
             tvTitle.text = getString(R.string.result_title)
         }
-//
-//        viewModel.navigateToLoginFragment.observe(this, Observer { code ->
-//            code?.let {
-//                val message = "Veuillez vous connecter avec votre compte !"
-//                Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
-//
-//                this.findNavController().navigate(
-//                    ListMuseesFragmentDirections.actionListMuseesFragmentToLoginFragment()
-//                )
-//                viewModel.doneNavigating()
-//            }
-//        })
-//      TODO: Trier dessus
+
         val adapter = MuseeAdapter(MuseeListener { musee ->
             Toast.makeText(this.context, "$musee clicked",Toast.LENGTH_SHORT).show()
             this.findNavController().navigate(
@@ -73,7 +61,19 @@ class ListMuseesFragment : Fragment() {
         viewModel.musees.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
-                binding.load.visibility = View.GONE
+            }
+        })
+
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            it.let {
+                if(it) {
+                    binding.load.visibility = View.VISIBLE
+                    binding.list.visibility = View.GONE
+                }
+                else {
+                    binding.load.visibility = View.GONE
+                    binding.list.visibility = View.VISIBLE
+                }
             }
         })
 

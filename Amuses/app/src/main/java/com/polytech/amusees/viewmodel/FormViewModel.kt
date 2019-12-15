@@ -6,11 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.polytech.amusees.database.UserDao
-import com.polytech.amusees.model.Column
 import com.polytech.amusees.model.Request
-import com.polytech.amusees.model.User
 import kotlinx.coroutines.*
-import java.security.MessageDigest
 
 
 class FormViewModel(
@@ -50,21 +47,23 @@ class FormViewModel(
     val navigateToListMuseesFragment: LiveData<Request>
         get() = _navigateToListMuseesFragment
 
-    fun onRefineSelected(position: Int) {
-        request.value?.refine = Column.values()[position]
-    }
-
     fun onRowsSelected(position: Int) {
-        request.value?.rows = position*10
+        request.value?.rows = (1+position)*10
     }
 
     fun onSortSelected(position: Int) {
-        request.value?.sort = Column.values()[position]
+        var sortBy = "nom_du_musee"
+        when(position) {
+            0->sortBy = "nom_du_musee"
+            1->sortBy = "ville"
+            2->sortBy = "nomdep"
+            3->sortBy = "new_regions"
+        }
+        request.value?.sort = sortBy
     }
 
     fun onValidateSearch() {
         _navigateToListMuseesFragment.value = request.value
-        Log.i("Click ! ", request.value.toString())
     }
 
     fun params(isChecked: Boolean) {
