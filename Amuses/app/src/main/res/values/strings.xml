@@ -47,5 +47,16 @@
     <string name="rows">Nombre de lignes par page</string>
     <string name="sort">Trier par</string>
 
+    <string name="region">Région</string>
+    <string name="departement">Département</string>
+    <string name="ville">Ville</string>
+    <string name="adresse">Adresse</string>
+    <string name="siteweb">Site web</string>
+    <string name="telephone">Téléphone</string>
+    <string name="ouverture">Période d\'ouverture</string>
+
+    <string name="nextPage">Page suivante</string>
+    <string name="precedentPage">Page précédente</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

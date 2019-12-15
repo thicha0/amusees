@@ -35,6 +35,13 @@ class DetailsFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.apply {
+            tvRegion1.text = getString(R.string.region)
+            tvDep1.text = getString(R.string.departement)
+            tvVille1.text = getString(R.string.ville)
+            tvAdresse1.text = getString(R.string.adresse)
+            tvSiteweb1.text = getString(R.string.siteweb)
+            tvTelephone1.text = getString(R.string.telephone)
+            tvOuverture1.text = getString(R.string.ouverture)
 
         }
 

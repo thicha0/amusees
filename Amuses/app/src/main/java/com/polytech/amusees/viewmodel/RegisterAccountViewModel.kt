@@ -108,7 +108,6 @@ class RegisterAccountViewModel(
                 return@launch
             }
 
-            //TODO change 'cause it shows the SHA1 in the input of the fragment
             user.password = encode("SHA1",user.password+"")
 
             user.id = insert(user)
@@ -123,7 +122,6 @@ class RegisterAccountViewModel(
         return email.matches(regex.toRegex())
     }
 
-    //TODO get out of here (factoriser avec LoginViewModel)
     fun encode(type:String, input: String): String {
         val HEX_CHARS = "0123456789ABCDEF"
         val bytes = MessageDigest

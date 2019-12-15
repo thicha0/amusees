@@ -86,7 +86,6 @@ class FormFragment : Fragment() {
         //Form
         viewModel.navigateToListMuseesFragment.observe(this, Observer { request ->
             request?.let {
-                Toast.makeText(this.context, request.toString(), Toast.LENGTH_SHORT).show()
                 this.findNavController().navigate(
                     FormFragmentDirections.actionFormFragmentToListMuseesFragment(request)
                 )

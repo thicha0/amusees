@@ -13,7 +13,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="20dp">
 
         <ImageView
             android:id="@+id/image"
@@ -43,83 +44,172 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_name"
-            app:layout_constraintBottom_toTopOf="@id/tv_region" />
+            app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
-        <TextView
-            android:id="@+id/tv_region"
+        <!-- _____________________________ -->
+
+        <LinearLayout
+            android:id="@+id/lay_region"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.musee.region}"
-            android:layout_marginTop="30dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textSize="12sp"
+            android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/separator" />
+            app:layout_constraintTop_toBottomOf="@+id/separator">
+            <TextView
+                android:id="@+id/tv_region1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tv_region"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.musee.region}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="12sp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_departement"
+        <LinearLayout
+            android:id="@+id/lay_departement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.musee.departement}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textSize="12sp"
+            android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_region" />
+            app:layout_constraintTop_toBottomOf="@+id/lay_region">
+            <TextView
+                android:id="@+id/tv_dep1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tv_dep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.musee.departement}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="12sp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_city"
+        <LinearLayout
+            android:id="@+id/lay_ville"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.musee.ville}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textSize="12sp"
+            android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_departement" />
+            app:layout_constraintTop_toBottomOf="@+id/lay_departement">
+            <TextView
+                android:id="@+id/tv_ville1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tv_ville"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.musee.ville}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="12sp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_adresse"
+        <LinearLayout
+            android:id="@+id/lay_adresse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.musee.adresse}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textSize="12sp"
+            android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_city" />
+            app:layout_constraintTop_toBottomOf="@+id/lay_ville">
+            <TextView
+                android:id="@+id/tv_adresse1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tv_adresse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.musee.adresse}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="12sp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_website"
+        <LinearLayout
+            android:id="@+id/lay_siteweb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.musee.siteweb}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textSize="12sp"
+            android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_adresse" />
+            app:layout_constraintTop_toBottomOf="@+id/lay_adresse">
+            <TextView
+                android:id="@+id/tv_siteweb1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tv_siteweb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.musee.siteweb}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="12sp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_phone"
+        <LinearLayout
+            android:id="@+id/lay_telephone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.musee.telephone}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textSize="12sp"
+            android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_website" />
+            app:layout_constraintTop_toBottomOf="@+id/lay_siteweb">
+            <TextView
+                android:id="@+id/tv_telephone1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tv_telephone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.musee.telephone}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_period"
+            android:id="@+id/tv_ouverture1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#dddddd"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/lay_telephone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_ouverture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_ouverture1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             android:text="@{viewModel.musee.periodeouverture}"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textSize="12sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
+            android:textSize="12sp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

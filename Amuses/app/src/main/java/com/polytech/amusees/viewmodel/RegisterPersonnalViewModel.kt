@@ -73,7 +73,6 @@ class RegisterPersonnalViewModel(
                 return@launch
             }
 
-            //TODO meilleur test (si c'est bien une date, si elle n'est pas aberrante)
             if(user.birthdayDate == 0L) {
                 _alert.value = "Veuillez sélectionner votre date de naissance"
                 return@launch

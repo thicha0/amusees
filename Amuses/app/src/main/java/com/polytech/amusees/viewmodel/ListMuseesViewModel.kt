@@ -10,81 +10,9 @@ import com.polytech.amusees.service.MyApi
 import com.polytech.amusees.service.Record
 import kotlinx.coroutines.*
 
-//class ListMuseesViewModel(
-//    val database: UserDao,
-//    application: Application,
-//    private val userID: Long = 0L // userID
-//) : AndroidViewModel(application)
-//{
-//
-//    private var viewModelJob = Job()
-//    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-//
-//    private val _user = MutableLiveData<User>()
-//    val user: LiveData<User>
-//        get() = _user
-//
-//    private val _musees = MutableLiveData<List<Musee>>()
-//    val musees: LiveData<List<Musee>>
-//        get() = _musees
-//
-//    init {
-//        Log.i("ListMuseesViewModel", "created")
-//        //initializeUser()
-//        getAllMusees()
-//    }
-//
-//    private fun initializeUser() {
-//        uiScope.launch {
-//            _user.value = getUserFromDatabase()
-//        }
-//    }
-//
-//    private fun getAllMusees() {
-//        uiScope.launch {
-//            var getMusees = MyApi.retrofitService.getMusees()
-//            try {
-//                var listResult = getMusees.await()
-//                Log.i("getAllMusees","success "+listResult.size+" musees retrieved")
-//                _musees.value = listResult
-//
-//            } catch (e: Exception) {
-//                Log.i("getAllMusees","fail : "+e.message)
-//            }
-//        }
-//    }
-//
-//    //gobackto login if user not allowed
-//    private val _navigateToLoginFragment = MutableLiveData<Int>()
-//
-//    val navigateToLoginFragment: LiveData<Int>
-//        get() = _navigateToLoginFragment
-//
-//    private suspend fun getUserFromDatabase(): User? {
-//        return withContext(Dispatchers.IO) {
-//
-//            var user = database.get(userID) // userID
-//            if (user == null) {
-//                _navigateToLoginFragment.value = 1
-//            }
-//            user
-//        }
-//    }
-//
-//    fun doneNavigating() {
-//        _navigateToLoginFragment.value = null
-//    }
-//
-//    override fun onCleared() {
-//        super.onCleared()
-//        Log.i("ListMuseesViewModel", "destroyed")
-//        viewModelJob.cancel()
-//    }
-//}
-
-// TODO Trier dessus
-
 class ListMuseesViewModel(request: Request) : ViewModel() {
+
+    private lateinit var request: Request
 
     private val _response = MutableLiveData<String>()
     val response: LiveData<String>
@@ -102,20 +30,21 @@ class ListMuseesViewModel(request: Request) : ViewModel() {
     val currentPage: LiveData<Int>
         get() = _currentPage
 
-    private val _nbResults = MutableLiveData<Int>()
-    val nbResults: LiveData<Int>
-        get() = _nbResults
+    private val _nbPages = MutableLiveData<Int>()
+    val nbPages: LiveData<Int>
+        get() = _nbPages
 
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
 
     init {
-        getMuseesList(request)
-        _isLoading.value = true
+        this.request = request
+        getMuseesList()
     }
 
-    private fun getMuseesList(request : Request) {
+    private fun getMuseesList() {
+        _isLoading.value = true
         coroutineScope.launch {
             var getMuseesDeferred = MyApi.retrofitService.getMusees(""+request.page,
                 ""+request.rows,
@@ -136,13 +65,24 @@ class ListMuseesViewModel(request: Request) : ViewModel() {
                 }
                 _musees.value = listMusee
                 _currentPage.value = request.page + 1
-                _nbResults.value = result.nhits
+                _nbPages.value = result.nhits / request.rows
             } catch (e: Exception) {
                 _response.value = "Echec: ${e.message}"
             }
             _isLoading.value = false
             Log.i("getMusee","done "+_response.value)
+            Log.i("nb pages", ""+nbPages.value)
         }
+    }
+
+    fun goToPrecedentPage() {
+        this.request.page = this.request.page - request.rows
+        getMuseesList()
+    }
+
+    fun goToNextPage() {
+        this.request.page = this.request.page + request.rows
+        getMuseesList()
     }
 
     private fun recordToMusee(record: Record): Musee {

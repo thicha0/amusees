@@ -42,21 +42,18 @@ class ListMuseesFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-//        Toast.makeText(activity, "Bienvenue " + viewModel.user.value?.login , Toast.LENGTH_SHORT).show()
-
         binding.apply {
             tvTitle.text = getString(R.string.result_title)
+            btNextPage.text = getString(R.string.nextPage)
+            btPrecedentPage.text = getString(R.string.precedentPage)
         }
 
         val adapter = MuseeAdapter(MuseeListener { musee ->
-            Toast.makeText(this.context, "$musee clicked",Toast.LENGTH_SHORT).show()
             this.findNavController().navigate(
                 ListMuseesFragmentDirections.actionListMuseesFragmentToDetailsFragment(musee)
             )
         })
         binding.list.adapter = adapter
-
-        Toast.makeText(this.context,viewModel.response.value,Toast.LENGTH_SHORT).show()
 
         viewModel.musees.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -69,10 +66,21 @@ class ListMuseesFragment : Fragment() {
                 if(it) {
                     binding.load.visibility = View.VISIBLE
                     binding.list.visibility = View.GONE
+                    binding.btNextPage.visibility = View.GONE
+                    binding.btPrecedentPage.visibility = View.GONE
                 }
                 else {
                     binding.load.visibility = View.GONE
                     binding.list.visibility = View.VISIBLE
+
+                    if (viewModel.currentPage.value?.compareTo(1) != -1) {
+                        binding.btPrecedentPage.visibility = View.VISIBLE
+                    }
+
+                    if (viewModel.currentPage.value != viewModel.nbPages.value) {
+                        binding.btNextPage.visibility = View.VISIBLE
+                    }
+
                 }
             }
         })

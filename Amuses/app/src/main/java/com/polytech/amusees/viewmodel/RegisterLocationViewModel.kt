@@ -213,7 +213,6 @@ enum class Countries(val nameCountry: String) {
         return nameCountry
     }
 
-    //TODO à revoir / déplacer
     fun countryNames() : Array<String?> {
         var names: ArrayList<String> = arrayListOf()
         for (country in Countries.values()) {
@@ -282,7 +281,7 @@ class RegisterLocationViewModel(
                 return@launch
             }
 
-            if(user.adress.isNullOrEmpty()) { //TODO vérif format ?
+            if(user.adress.isNullOrEmpty()) {
                 _alert.value = "Veuillez saisir votre adresse"
                 return@launch
             }

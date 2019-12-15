@@ -25,7 +25,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- TODO required fields + alerts on screen-->
         <!-- Login -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ev_login"
