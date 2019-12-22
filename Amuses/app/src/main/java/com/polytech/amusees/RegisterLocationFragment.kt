@@ -18,7 +18,6 @@ import com.polytech.amusees.databinding.FragmentRegisterLocationBinding
 import com.polytech.amusees.viewmodel.Countries
 import com.polytech.amusees.viewmodel.RegisterLocationViewModel
 import com.polytech.amusees.viewmodelfactory.RegisterLocationViewModelFactory
-import kotlinx.android.synthetic.main.fragment_register_location.*
 
 
 class RegisterLocationFragment : Fragment() {

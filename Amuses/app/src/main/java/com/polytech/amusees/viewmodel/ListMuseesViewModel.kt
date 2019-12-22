@@ -65,7 +65,7 @@ class ListMuseesViewModel(request: Request) : ViewModel() {
                 }
                 _musees.value = listMusee
                 _currentPage.value = request.page + 1
-                _nbPages.value = result.nhits / request.rows
+                _nbPages.value = (result.nhits / request.rows) + 1
             } catch (e: Exception) {
                 _response.value = "Echec: ${e.message}"
             }

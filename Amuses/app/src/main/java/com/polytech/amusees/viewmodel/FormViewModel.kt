@@ -52,12 +52,11 @@ class FormViewModel(
     }
 
     fun onSortSelected(position: Int) {
-        var sortBy = "nom_du_musee"
+        var sortBy = "ville"
         when(position) {
-            0->sortBy = "nom_du_musee"
-            1->sortBy = "ville"
-            2->sortBy = "nomdep"
-            3->sortBy = "new_regions"
+            0->sortBy = "ville"
+            1->sortBy = "nomdep"
+            2->sortBy = "new_regions"
         }
         request.value?.sort = sortBy
     }

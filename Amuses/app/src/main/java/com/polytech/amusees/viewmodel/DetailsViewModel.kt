@@ -5,10 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.polytech.amusees.database.UserDao
 import com.polytech.amusees.model.Musee
-import com.polytech.amusees.model.User
-import com.polytech.amusees.service.Record
 import kotlinx.coroutines.*
 
 class DetailsViewModel(
@@ -24,7 +21,7 @@ class DetailsViewModel(
         get() = _musee
 
     init {
-        Log.i("RegisterLocationVM", "created")
+        Log.i("DetailsViewModel", "created")
         initializeMusee()
     }
 

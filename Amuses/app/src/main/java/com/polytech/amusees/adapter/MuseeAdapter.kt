@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.polytech.amusees.databinding.ItemMuseeViewBinding
 import com.polytech.amusees.model.Musee
-import com.polytech.amusees.service.Record
 
 class MuseeAdapter(val clickListener: MuseeListener) : ListAdapter<Musee, MuseeAdapter.ViewHolder>(MuseeDiffCallback()) {
 

@@ -94,6 +94,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun enter(view: View?) {
+        animationStarted = false
         view?.findNavController()?.navigate(R.id.action_homeFragment_to_loginFragment)
     }
 }

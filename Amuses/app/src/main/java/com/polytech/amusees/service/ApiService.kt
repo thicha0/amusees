@@ -7,7 +7,6 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 private val BASE_URL =
@@ -30,11 +29,15 @@ interface MyApiService {
                   @Query("sort") sort: String = "nom_du_musee",
                   @Query("q") query: String?
                   ): Deferred<Response>
+
+    //possibilité de faire une recherche à partir d'une géolocalisation...
 }
 
 object MyApi {
     val retrofitService : MyApiService by lazy { retrofit.create(MyApiService::class.java) }
 }
+
+//Kotlin data classes from JSON
 
 data class Response(
     val nhits: Int,

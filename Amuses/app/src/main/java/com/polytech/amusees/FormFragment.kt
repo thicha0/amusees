@@ -72,7 +72,7 @@ class FormFragment : Fragment() {
                 }
             }
 
-            spSort.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, arrayOf("Nom du musée", "Ville", "Département", "Région"))
+            spSort.adapter = ArrayAdapter<String>(application,android.R.layout.simple_list_item_1, arrayOf("Ville", "Département", "Région"))
             spSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     //

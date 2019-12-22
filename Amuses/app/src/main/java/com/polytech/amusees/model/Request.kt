@@ -8,7 +8,7 @@ class Request() :Parcelable {
     var query: String? = ""
 
     //tri
-    var sort: String? = "nom_du_musee"
+    var sort: String? = "ville"
 
     //pages
     var page: Int = 0

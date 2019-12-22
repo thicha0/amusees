@@ -42,7 +42,6 @@ class DetailsFragment : Fragment() {
             tvSiteweb1.text = getString(R.string.siteweb)
             tvTelephone1.text = getString(R.string.telephone)
             tvOuverture1.text = getString(R.string.ouverture)
-
         }
 
         return binding.root

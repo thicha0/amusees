@@ -92,7 +92,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:onClick="@{() -> viewModel.onValidateLocation()}"/>
 
-        <!-- TODO User ne passe pas bien dans l'autre sens ='( -->
         <Button
             android:id="@+id/bt_previous"
             android:layout_width="wrap_content"

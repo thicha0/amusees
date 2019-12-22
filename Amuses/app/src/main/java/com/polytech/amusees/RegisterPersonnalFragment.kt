@@ -3,7 +3,6 @@ package com.polytech.amusees
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,7 +56,8 @@ class RegisterPersonnalFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dataSource = MyDatabase.getInstance(application).userDao
-        val viewModelFactory = RegisterPersonnalViewModelFactory(dataSource, application)
+        val args = RegisterLocationFragmentArgs.fromBundle(arguments!!)
+        val viewModelFactory = RegisterPersonnalViewModelFactory(dataSource, application, args.user)
 
         viewModel =
             ViewModelProviders.of(

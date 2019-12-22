@@ -4,16 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.polytech.amusees.adapter.MuseeAdapter
 import com.polytech.amusees.adapter.MuseeListener
-import com.polytech.amusees.database.MyDatabase
 import com.polytech.amusees.databinding.FragmentListMuseesBinding
 import com.polytech.amusees.viewmodel.ListMuseesViewModel
 import com.polytech.amusees.viewmodelfactory.ListMuseesViewModelFactory
@@ -32,9 +29,7 @@ class ListMuseesFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val args = ListMuseesFragmentArgs.fromBundle(arguments!!)
-        val application = requireNotNull(this.activity).application
-        val dataSource = MyDatabase.getInstance(application).userDao
-        val viewModelFactory = ListMuseesViewModelFactory(application,args.request)
+        val viewModelFactory = ListMuseesViewModelFactory(args.request)
 
         viewModel =
             ViewModelProviders.of(
@@ -68,16 +63,18 @@ class ListMuseesFragment : Fragment() {
                     binding.list.visibility = View.GONE
                     binding.btNextPage.visibility = View.GONE
                     binding.btPrecedentPage.visibility = View.GONE
+                    adapter.submitList(null)
                 }
                 else {
                     binding.load.visibility = View.GONE
                     binding.list.visibility = View.VISIBLE
 
-                    if (viewModel.currentPage.value?.compareTo(1) != -1) {
+                    var page: Int = viewModel.currentPage.value?:0
+                    if (page > 1) {
                         binding.btPrecedentPage.visibility = View.VISIBLE
                     }
 
-                    if (viewModel.currentPage.value != viewModel.nbPages.value) {
+                    if (page < viewModel.nbPages.value?:0) {
                         binding.btNextPage.visibility = View.VISIBLE
                     }
 
